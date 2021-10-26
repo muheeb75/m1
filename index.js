@@ -6,6 +6,15 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended:true}))
 // use the express-static middleware
 //app.use(express.static("public"))
+
+const { Pool } = require('pg');
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
+  }
+});
+
 const Port = process.env.PORT || 3000;
 /*
 const RefreshToken = process.env.REFRESH_TOKEN || 'Atzr|IwEBIKaDEcQEt-upWRDiYCpr9w3UXAs1Bpg9phpH6QYZ9QVk93RS28ip2kyS5T55f6M6mV_mLLU4jk6vbPQPJn8KspFgLE5_Ozemye-JVxOiPq7zL1UVDjcuCckibZRddNujWWVldG8KDVmRVUh1sdgbSL-EDqAL6AcFFkWQ0J9YbTs-1X52fSXljyxRdXD8f5L4xHVlZhCBCpvALmJE9XS2ZXXuw7p9rqYBRRNdoBSJCAWlakmIIQKRY2uZEf2z3Ioyrqc4TnQIoF2Gnn_2JHnc1Fzca6iPJddYMTytC4bLZLZ_5t7jS3eMcdMnyBjThoJo44g';
@@ -82,6 +91,21 @@ const SellingPartnerAPI = require('amazon-sp-api');
     app.get("", function (req, res) {
     res.sendFile(__dirname+"/index.html"); 
   })
+
+  //DB
+  .get('/db', async (req, res) => {
+    try {
+      const client = await pool.connect();
+      const result = await client.query('SELECT * FROM test_table');
+      const results = { 'results': (result) ? result.rows : null};
+      res.render('pages/db', results );
+      client.release();
+    } catch (err) {
+      console.error(err);
+      res.send("Error " + err);
+    }
+  })
+  //
   var name;
   app.post('/',(req, res) => {
     res.send(`<ul>
