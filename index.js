@@ -93,18 +93,7 @@ const SellingPartnerAPI = require('amazon-sp-api');
   })
 
   //DB
-  .get('/db', async (req, res) => {
-    try {
-      const client = await pool.connect();
-      const result = await client.query('SELECT * FROM test_table');
-      const results = { 'results': (result) ? result.rows : null};
-      res.render('pages/db', results );
-      client.release();
-    } catch (err) {
-      console.error(err);
-      res.send("Error " + err);
-    }
-  })
+ 
   //
   var name;
   app.post('/',(req, res) => {
@@ -114,6 +103,21 @@ const SellingPartnerAPI = require('amazon-sp-api');
     <li>Total Orders = ${orderDetails[0].length}</li>
   </ul>`);
   })
+//DB
+.get('/db', async (req, res) => {
+  try {
+    const client = await pool.connect();
+    const result = await client.query('SELECT * FROM test_table');
+    const results = { 'results': (result) ? result.rows : null};
+    res.render('pages/db', results );
+    client.release();
+  } catch (err) {
+    console.error(err);
+    res.send("Error " + err);
+  }
+})
+//
+
   // start the server listening for requests
   app.listen(Port, 
     () => console.log("Server is running..."));
