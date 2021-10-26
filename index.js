@@ -122,7 +122,7 @@ const SellingPartnerAPI = require('amazon-sp-api');
     () => console.log("Server is running..."));
     //
   } catch(e){
-    console.log('Error->',e);
+    console.log('Error-> ',e);
   }
 })();
 
