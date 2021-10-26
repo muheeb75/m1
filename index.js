@@ -98,7 +98,8 @@ const SellingPartnerAPI = require('amazon-sp-api');
     const result = await client.query('SELECT * FROM test_table');
     const results = { 'results': (result) ? result.rows : null};
     console.log('DB75->',result)
-    res.render('pages/db', results );
+    res.send(results);
+    res.json({ error: err })
     client.release();
   } catch (err) {
     console.error(err);
