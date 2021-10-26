@@ -14,7 +14,6 @@ const pool = new Pool({
     rejectUnauthorized: false
   }
 });
-
 const Port = process.env.PORT || 3000;
 /*
 const RefreshToken = process.env.REFRESH_TOKEN || 'Atzr|IwEBIKaDEcQEt-upWRDiYCpr9w3UXAs1Bpg9phpH6QYZ9QVk93RS28ip2kyS5T55f6M6mV_mLLU4jk6vbPQPJn8KspFgLE5_Ozemye-JVxOiPq7zL1UVDjcuCckibZRddNujWWVldG8KDVmRVUh1sdgbSL-EDqAL6AcFFkWQ0J9YbTs-1X52fSXljyxRdXD8f5L4xHVlZhCBCpvALmJE9XS2ZXXuw7p9rqYBRRNdoBSJCAWlakmIIQKRY2uZEf2z3Ioyrqc4TnQIoF2Gnn_2JHnc1Fzca6iPJddYMTytC4bLZLZ_5t7jS3eMcdMnyBjThoJo44g';
@@ -93,17 +92,6 @@ const SellingPartnerAPI = require('amazon-sp-api');
   })
 
   //DB
- 
-  //
-  var name;
-  app.post('/',(req, res) => {
-    res.send(`<ul>
-    <li>${JSON.stringify(orderDetails[0])}</li>
-    <br/>
-    <li>Total Orders = ${orderDetails[0].length}</li>
-  </ul>`);
-  })
-//DB
 .get('/db', async (req, res) => {
   try {
     const client = await pool.connect();
@@ -117,6 +105,15 @@ const SellingPartnerAPI = require('amazon-sp-api');
   }
 })
 //
+  var name;
+  app.post('/',(req, res) => {
+    res.send(`<ul>
+    <li>${JSON.stringify(orderDetails[0])}</li>
+    <br/>
+    <li>Total Orders = ${orderDetails[0].length}</li>
+  </ul>`);
+  })
+
 
   // start the server listening for requests
   app.listen(Port, 
