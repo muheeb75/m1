@@ -117,7 +117,7 @@ const SellingPartnerAPI = require('amazon-sp-api');
        // pool.query(`INSERT INTO test_table(Amazon_Order_Id, Sales_Channel, Order_Status, Marketplace_Id, Order_Type, Purchase_Date)VALUES(${orderDetails[i].AmazonOrderId}, ${orderDetails[i].SalesChannel}, ${orderDetails[i].OrderStatus}, ${orderDetails[i].MarketplaceId}, ${orderDetails[i].OrderType}, ${orderDetails[i].PurchaseDate})`, (err, res) => {
         pool.query(`INSERT INTO test_table(Amazon_Order_Id, Sales_Channel, Order_Status, Marketplace_Id, Order_Type, Purchase_Date)VALUES(205-1458590-4647527, 'Amazon.co.uk', 'Canceled', 'A1F83G8C2ARO7P', 'StandardOrder', '2021-10-09T21:08:42Z')`, ['Value1','Value2','Value3','Value4','Value5','Value6'], (err, res) => {
           if (err) {
-              console.log("Error - Failed to insert data into test_table");
+              console.log("Error - Failed to insert data into test_table ");
               console.log(err);
           }
           else{
