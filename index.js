@@ -111,10 +111,11 @@ const SellingPartnerAPI = require('amazon-sp-api');
     
  //Insert Operation :
 
- if(orderDetails != []){
+/* if(orderDetails != []){
     for(let i in orderDetails){
-     if(orderDetails[i].AmazonOrderId != "" && orderDetails[i].SalesChannel != "" && orderDetails[i].OrderStatus != "" && orderDetails[i].MarketplaceId != "" && orderDetails[i].OrderType != "" && orderDetails[i].PurchaseDate != ""){
-        pool.query(`INSERT INTO test_table(Amazon_Order_Id, Sales_Channel, Order_Status, Marketplace_Id, Order_Type, Purchase_Date)VALUES(${orderDetails[i].AmazonOrderId}, ${orderDetails[i].SalesChannel}, ${orderDetails[i].OrderStatus}, ${orderDetails[i].MarketplaceId}, ${orderDetails[i].OrderType}, ${orderDetails[i].PurchaseDate})`, (err, res) => {
+     if(orderDetails[i].AmazonOrderId != "" && orderDetails[i].SalesChannel != "" && orderDetails[i].OrderStatus != "" && orderDetails[i].MarketplaceId != "" && orderDetails[i].OrderType != "" && orderDetails[i].PurchaseDate != ""){*/
+       // pool.query(`INSERT INTO test_table(Amazon_Order_Id, Sales_Channel, Order_Status, Marketplace_Id, Order_Type, Purchase_Date)VALUES(${orderDetails[i].AmazonOrderId}, ${orderDetails[i].SalesChannel}, ${orderDetails[i].OrderStatus}, ${orderDetails[i].MarketplaceId}, ${orderDetails[i].OrderType}, ${orderDetails[i].PurchaseDate})`, (err, res) => {
+        pool.query(`INSERT INTO test_table(Amazon_Order_Id, Sales_Channel, Order_Status, Marketplace_Id, Order_Type, Purchase_Date)VALUES(205-1458590-4647527, 'Amazon.co.uk', 'Canceled', 'A1F83G8C2ARO7P', 'StandardOrder', '2021-10-09T21:08:42Z')`, ['Value1','Value2','Value3','Value4','Value5','Value6'], (err, res) => {
           if (err) {
               console.log("Error - Failed to insert data into test_table");
               console.log(err);
@@ -123,16 +124,10 @@ const SellingPartnerAPI = require('amazon-sp-api');
             console.log('PSQL Response->', res);
           }
         });
+   /* }
     }
-    }
-  }
- /*pool.query(`INSERT INTO test_table(FirstName,LastName)VALUES($1,$2)`, ['FirstNameValue','LastNameValue'], (err, res) => {
-  if (err) {
-      console.log("Error - Failed to insert data into Users");
-      console.log(err);
-  }
-});*/
-    //
+  }*/
+ 
    
 
     res.send(`<ul>
@@ -153,55 +148,5 @@ const SellingPartnerAPI = require('amazon-sp-api');
   }
 })();
 
-/*(async() => {
-  try {
-    let sellingPartner = new SellingPartnerAPI({
-      region:'eu', // The region to use for the SP-API endpoints ("eu", "na" or "fe")
-     // refresh_token:'<REFRESH_TOKEN>' // The refresh token of your app user
-     refresh_token:'Atzr|IwEBIPU1RtJdOqwf0YGa2VkMs1KZKKYNCTW9Cgd9PODYIhagDTuEvZRb45GHthrAd1nK1lUg-9ItFbst5JLZr7cquVtPEDiQpViwsFG-06Kvv8I83hYRyKD1lU2FTQlZfXRfPgamg8Dsz7SpdWGlcx0LsZnwOND6glwqxGTT7nJ9Mg6Lh3rxGdU71F8voqm0cNdpFrSgWjAvPD8eqgXbAnodHuMxwSjvcW0D9GPY3j1Bk3u3YJHmfF-RdViscx7IlV1toIDGOCztpl_fbKg2--MU_O3fNQ6nNSJO-BZplsYwNLhya7oZPC3vH5lLPvjXENpaKQk',// refresh token taken from app > authorize > Generate refresh token
-     // JSON of 4 major keys
-     credentials: {
-      SELLING_PARTNER_APP_CLIENT_ID:'amzn1.application-oa2-client.0c850cdf43ed4e8487a79c648c24bf80',
-      SELLING_PARTNER_APP_CLIENT_SECRET:'7f2893920915b2ccb0cfce4af2976484a012e1c380e4afaabe70690178e4fd8a',
-      AWS_ACCESS_KEY_ID:'AKIAUWP7HSF63GXOMU7F',
-      AWS_SECRET_ACCESS_KEY:'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',
-      AWS_SELLING_PARTNER_ROLE:'arn:aws:iam::323194687869:role/SPAPIRole'
-      }
-    });
 
-    let manageInventoryData = await sellingPartner.callAPI({
-      operation: 'getInventorySummaries',
-      endpoint:'sellers',
-      query: {
-      details: true,
-      granularityType: 'Marketplace',
-      marketplaceIds: 'A1F83G8C2ARO7P'
-      }
-      });
-    
-    
-    console.log(manageInventoryData);
-  } catch(e){
-    console.log(e);
-  }
-})();*/
-/*
-// create an express app
-const express = require("express")
-const app = express()
-
-// use the express-static middleware
-app.use(express.static("public"))
-
-// define the first route
-app.get("/", function (req, res) {
-    let value = "Muheeb Pasha";
-  res.send(`<h1>Hello, ${value}</h1>`)
-})
-
-// start the server listening for requests
-app.listen(process.env.PORT || 3000, 
-	() => console.log("Server is running..."));
-
-*/
     
