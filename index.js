@@ -75,19 +75,17 @@ const SellingPartnerAPI = require('amazon-sp-api');
         LastUpdatedAfter : '2020-09-26'
         }
     });
-    console.log('Response->',res.Orders);
+    console.log('Response->',JSON.stringify(res.Orders));
     
-
     if(res != []){
       var orderDetails = [];
-      for(let i in res){
-        if(res[i].OrderStatus != 'Canceled')orderDetails.push(res[i]);
+      for(let i in res.Orders){
+          if(res.Orders[i].AmazonOrderId != "")orderDetails.push(res.Orders[i]);
       }
     }
-    console.log('orderDetails->',JSON.stringify(orderDetails));
-    console.log('orderDetails Length->',orderDetails[0].length);
+    //console.log('orderDetails->',JSON.stringify(orderDetails));
+    console.log('orderDetails Length->',orderDetails.length);
 
-   
     app.get("", function (req, res) {
     res.sendFile(__dirname+"/index.html"); 
   })
@@ -112,6 +110,22 @@ const SellingPartnerAPI = require('amazon-sp-api');
   app.post('/',(req, res) => {
     
  //Insert Operation :
+
+ if(orderDetails != []){
+    for(let i in orderDetails){
+     if(orderDetails[i].AmazonOrderId != "" && orderDetails[i].SalesChannel != "" && orderDetails[i].OrderStatus != "" && orderDetails[i].MarketplaceId != "" && orderDetails[i].OrderType != "" && orderDetails[i].PurchaseDate != ""){
+        pool.query(`INSERT INTO test_table(Amazon_Order_Id, Sales_Channel, Order_Status, Marketplace_Id, Order_Type, Purchase_Date)VALUES(${orderDetails[i].AmazonOrderId}, ${orderDetails[i].SalesChannel}, ${orderDetails[i].OrderStatus}, ${orderDetails[i].MarketplaceId}, ${orderDetails[i].OrderType}, ${orderDetails[i].PurchaseDate})`, ['Amazon_Order_Id_Value','Sales_Channel_Value', 'Order_Status_Value', 'Marketplace_Id_Value', 'Order_Type_value', 'Purchase_Date_Value'], (err, res) => {
+          if (err) {
+              console.log("Error - Failed to insert data into Users");
+              console.log(err);
+          }
+          else{
+            console.log('PSQL Response->', res);
+          }
+        });
+    }
+    }
+  }
  /*pool.query(`INSERT INTO test_table(FirstName,LastName)VALUES($1,$2)`, ['FirstNameValue','LastNameValue'], (err, res) => {
   if (err) {
       console.log("Error - Failed to insert data into Users");
@@ -124,7 +138,8 @@ const SellingPartnerAPI = require('amazon-sp-api');
     res.send(`<ul>
     <li><h1>You heave successfully synced the orders.</h1></li>
     <br/>
-    <li>Total Orders = ${orderDetails[0].length}</li>
+    <br/>
+    <li>All Order Details = ${JSON.stringify(orderDetails[0].OrderStatus)}</li>
   </ul>`);
   })
 
