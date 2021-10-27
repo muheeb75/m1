@@ -110,6 +110,7 @@ const SellingPartnerAPI = require('amazon-sp-api');
 })
 //
   app.post('/',(req, res) => {
+    
  //Insert Operation :
  /*pool.query(`INSERT INTO test_table(FirstName,LastName)VALUES($1,$2)`, ['FirstNameValue','LastNameValue'], (err, res) => {
   if (err) {
