@@ -97,7 +97,7 @@ const SellingPartnerAPI = require('amazon-sp-api');
     const client = await pool.connect();
     const result = await client.query('SELECT * FROM amazon_orders');
     const results = { 'results': (result) ? result.rows : null};
-    console.log('DB75->',result)
+    console.log('DB75 Response->',result)
     res.send(results);
     res.json({ error: err })
     client.release();
