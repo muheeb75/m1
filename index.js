@@ -95,7 +95,7 @@ const SellingPartnerAPI = require('amazon-sp-api');
   try {
     
     const client = await pool.connect();
-    const result = await client.query('SELECT * FROM amazon_orders');
+    const result = await client.query('SELECT * FROM salesforce.orders__c');
     const results = { 'results': (result) ? result.rows : null};
     console.log('DB75 Response->',result)
     res.send(results);
@@ -114,12 +114,12 @@ const SellingPartnerAPI = require('amazon-sp-api');
  if(orderDetails != []){
     for(let i in orderDetails){
      if(orderDetails[i].AmazonOrderId != "" && orderDetails[i].SalesChannel != "" && orderDetails[i].OrderStatus != "" && orderDetails[i].MarketplaceId != "" && orderDetails[i].OrderType != "" && orderDetails[i].PurchaseDate != ""){
-          pool.query(`INSERT INTO amazon_orders(Amazon_Order_Id, Sales_Channel, Order_Status, Marketplace_Id, Order_Type, Purchase_Date)VALUES($1,$2,$3,$4,$5,$6)`, [`${orderDetails[i].AmazonOrderId}`,`${orderDetails[i].SalesChannel}`, `${orderDetails[i].OrderStatus}`, `${orderDetails[i].MarketplaceId}`, `${orderDetails[i].OrderType}`, `${orderDetails[i].PurchaseDate}`], (err, res) => {
+          pool.query(`INSERT INTO salesforce.orders__c(AmazonOrderId__c, SalesChannel__c, OrderStatus__c, MarketplaceId__c, OrderType__c, PurchaseDate__c)VALUES($1,$2,$3,$4,$5,$6)`, [`${orderDetails[i].AmazonOrderId}`,`${orderDetails[i].SalesChannel}`, `${orderDetails[i].OrderStatus}`, `${orderDetails[i].MarketplaceId}`, `${orderDetails[i].OrderType}`, `${orderDetails[i].PurchaseDate}`], (err, res) => {
             if (err) {
                 console.log("Error - Failed to insert data into amazon_orders");
                 console.log(err);
             }else{
-              console.log('DB res->',res)
+              console.log('DB res->',res);
             }
         });
        
