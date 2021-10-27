@@ -114,9 +114,9 @@ const SellingPartnerAPI = require('amazon-sp-api');
  if(orderDetails != []){
     for(let i in orderDetails){
      if(orderDetails[i].AmazonOrderId != "" && orderDetails[i].SalesChannel != "" && orderDetails[i].OrderStatus != "" && orderDetails[i].MarketplaceId != "" && orderDetails[i].OrderType != "" && orderDetails[i].PurchaseDate != ""){
-        pool.query(`INSERT INTO test_table(Amazon_Order_Id, Sales_Channel, Order_Status, Marketplace_Id, Order_Type, Purchase_Date)VALUES(${orderDetails[i].AmazonOrderId}, ${orderDetails[i].SalesChannel}, ${orderDetails[i].OrderStatus}, ${orderDetails[i].MarketplaceId}, ${orderDetails[i].OrderType}, ${orderDetails[i].PurchaseDate})`, ['Amazon_Order_Id_Value','Sales_Channel_Value', 'Order_Status_Value', 'Marketplace_Id_Value', 'Order_Type_value', 'Purchase_Date_Value'], (err, res) => {
+        pool.query(`INSERT INTO test_table(Amazon_Order_Id, Sales_Channel, Order_Status, Marketplace_Id, Order_Type, Purchase_Date)VALUES(${orderDetails[i].AmazonOrderId}, ${orderDetails[i].SalesChannel}, ${orderDetails[i].OrderStatus}, ${orderDetails[i].MarketplaceId}, ${orderDetails[i].OrderType}, ${orderDetails[i].PurchaseDate})`, (err, res) => {
           if (err) {
-              console.log("Error - Failed to insert data into Users");
+              console.log("Error - Failed to insert data into test_table");
               console.log(err);
           }
           else{
