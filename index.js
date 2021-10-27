@@ -86,7 +86,8 @@ const SellingPartnerAPI = require('amazon-sp-api');
     }
     console.log('orderDetails->',JSON.stringify(orderDetails));
     console.log('orderDetails Length->',orderDetails[0].length);
-    //
+
+   
     app.get("", function (req, res) {
     res.sendFile(__dirname+"/index.html"); 
   })
@@ -94,6 +95,7 @@ const SellingPartnerAPI = require('amazon-sp-api');
   //DB
 .get('/db', async (req, res) => {
   try {
+    
     const client = await pool.connect();
     const result = await client.query('SELECT * FROM test_table');
     const results = { 'results': (result) ? result.rows : null};
@@ -107,10 +109,19 @@ const SellingPartnerAPI = require('amazon-sp-api');
   }
 })
 //
-  var name;
   app.post('/',(req, res) => {
+ //Insert Operation :
+ /*pool.query(`INSERT INTO test_table(FirstName,LastName)VALUES($1,$2)`, ['FirstNameValue','LastNameValue'], (err, res) => {
+  if (err) {
+      console.log("Error - Failed to insert data into Users");
+      console.log(err);
+  }
+});*/
+    //
+   
+
     res.send(`<ul>
-    <li>${JSON.stringify(orderDetails[0])}</li>
+    <li><h1>You heave successfully synced the orders.</h1></li>
     <br/>
     <li>Total Orders = ${orderDetails[0].length}</li>
   </ul>`);
