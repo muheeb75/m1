@@ -95,7 +95,7 @@ const SellingPartnerAPI = require('amazon-sp-api');
   try {
     
     const client = await pool.connect();
-    const result = await client.query('SELECT * FROM Users');
+    const result = await client.query('SELECT * FROM test_table');
     const results = { 'results': (result) ? result.rows : null};
     console.log('DB75->',result)
     res.send(results);
@@ -124,10 +124,12 @@ const SellingPartnerAPI = require('amazon-sp-api');
             console.log('PSQL Response->', res);
           }
         });*/
-        pool.query(`INSERT INTO Users(FirstName,LastName)VALUES($1,$2)`, ['FirstNameValue','LastNameValue'], (err, res) => {
+        pool.query(`INSERT INTO test_table(Amazon_Order_Id, Sales_Channel, Order_Status, Marketplace_Id, Order_Type, Purchase_Date)VALUES($1,$2,$3,$4,$5,$6)`, [026-2174201-0413163,'Amazon.co.uk', 'Canceled', 'A1F83G8C2ARO7P', 'StandardOrder', '2021-10-09T21:08:42Z'], (err, res) => {
           if (err) {
               console.log("Error - Failed to insert data into Users");
               console.log(err);
+          }else{
+            console.log('DB res->',res)
           }
       });
    /* }
