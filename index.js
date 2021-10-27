@@ -115,7 +115,7 @@ const SellingPartnerAPI = require('amazon-sp-api');
     for(let i in orderDetails){
      if(orderDetails[i].AmazonOrderId != "" && orderDetails[i].SalesChannel != "" && orderDetails[i].OrderStatus != "" && orderDetails[i].MarketplaceId != "" && orderDetails[i].OrderType != "" && orderDetails[i].PurchaseDate != ""){*/
        // pool.query(`INSERT INTO test_table(Amazon_Order_Id, Sales_Channel, Order_Status, Marketplace_Id, Order_Type, Purchase_Date)VALUES(${orderDetails[i].AmazonOrderId}, ${orderDetails[i].SalesChannel}, ${orderDetails[i].OrderStatus}, ${orderDetails[i].MarketplaceId}, ${orderDetails[i].OrderType}, ${orderDetails[i].PurchaseDate})`, (err, res) => {
-        pool.query(`INSERT INTO test_table(Amazon_Order_Id, Sales_Channel, Order_Status, Marketplace_Id, Order_Type, Purchase_Date)VALUES($1, $2, $3, $4, $5, $6)`, [205-1458590-4647527, 'Amazon.co.uk', 'Canceled', 'A1F83G8C2ARO7P', 'StandardOrder', '2021-10-09T21:08:42Z'], (err, res) => {
+       /* pool.query(`INSERT INTO test_table(Amazon_Order_Id, Sales_Channel, Order_Status, Marketplace_Id, Order_Type, Purchase_Date)VALUES($1, $2, $3, $4, $5, $6)`, [205-1458590-4647527, 'Amazon.co.uk', 'Canceled', 'A1F83G8C2ARO7P', 'StandardOrder', '2021-10-09T21:08:42Z'], (err, res) => {
           if (err) {
               console.log("Error - Failed to insert data into test_table ");
               console.log(err);
@@ -123,7 +123,13 @@ const SellingPartnerAPI = require('amazon-sp-api');
           else{
             console.log('PSQL Response->', res);
           }
-        });
+        });*/
+        pool.query(`INSERT INTO Users(FirstName,LastName)VALUES($1,$2)`, ['FirstNameValue','LastNameValue'], (err, res) => {
+          if (err) {
+              console.log("Error - Failed to insert data into Users");
+              console.log(err);
+          }
+      });
    /* }
     }
   }*/
