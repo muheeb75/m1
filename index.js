@@ -52,8 +52,8 @@ const SellingPartnerAPI = require('amazon-sp-api');
   console.log('Error->',e);
 }*/
   try {
-    console.log('process.env.DATABASE_URL'+process.env.DATABASE_URL);
-    console.log('AWS_ACCESS_KEY_ID'+process.env.AWS_ACCESS_KEY_ID);
+    //console.log('process.env.DATABASE_URL'+process.env.DATABASE_URL);
+    //console.log('AWS_ACCESS_KEY_ID'+process.env.AWS_ACCESS_KEY_ID);
     let sellingPartner = new SellingPartnerAPI({
       region:'eu', // The region to use for the SP-API endpoints ("eu", "na" or "fe")
       refresh_token:'Atzr|IwEBIKaDEcQEt-upWRDiYCpr9w3UXAs1Bpg9phpH6QYZ9QVk93RS28ip2kyS5T55f6M6mV_mLLU4jk6vbPQPJn8KspFgLE5_Ozemye-JVxOiPq7zL1UVDjcuCckibZRddNujWWVldG8KDVmRVUh1sdgbSL-EDqAL6AcFFkWQ0J9YbTs-1X52fSXljyxRdXD8f5L4xHVlZhCBCpvALmJE9XS2ZXXuw7p9rqYBRRNdoBSJCAWlakmIIQKRY2uZEf2z3Ioyrqc4TnQIoF2Gnn_2JHnc1Fzca6iPJddYMTytC4bLZLZ_5t7jS3eMcdMnyBjThoJo44g', // The refresh token of your app user
@@ -132,7 +132,7 @@ const SellingPartnerAPI = require('amazon-sp-api');
     res.send(`<ul>
     <li><h1>You heave successfully synced total "${JSON.stringify(orderDetails.length)}" amazon orders to the salesforce.</h1></li>
     <br/>
-    <a href="https://nameless-earth-43984.herokuapp.com" target="_blank">Back</a>
+    <a href="https://aqxolt-amazon.herokuapp.com" target="_blank">Back</a>
     <br/>
   </ul>`);
   })
