@@ -91,7 +91,7 @@ const SellingPartnerAPI = require('amazon-sp-api');
   })
 
   //DB
-.get('/db', async (req, res) => {
+/*.get('/db', async (req, res) => {
   try {
     
     const client = await pool.connect();
@@ -105,7 +105,7 @@ const SellingPartnerAPI = require('amazon-sp-api');
     console.error(err);
     res.send("Error->" + err);
   }
-})
+})*/
 //
   app.post('/',(req, res) => {
     
@@ -130,10 +130,10 @@ const SellingPartnerAPI = require('amazon-sp-api');
    
 
     res.send(`<ul>
-    <li><h1>You heave successfully synced the orders.</h1></li>
+    <li><h1>You heave successfully synced total "${JSON.stringify(orderDetails.length)}" amazon orders to the salesforce.</h1></li>
     <br/>
+    <a href="https://nameless-earth-43984.herokuapp.com" target="_blank">Back</a>
     <br/>
-    <li>All Order Details = ${JSON.stringify(orderDetails[0].OrderStatus)}</li>
   </ul>`);
   })
 
