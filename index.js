@@ -15,14 +15,17 @@ const pool = new Pool({
   }
 });
 const Port = process.env.PORT || 3000;
-/*
-const RefreshToken = process.env.REFRESH_TOKEN || 'Atzr|IwEBIKaDEcQEt-upWRDiYCpr9w3UXAs1Bpg9phpH6QYZ9QVk93RS28ip2kyS5T55f6M6mV_mLLU4jk6vbPQPJn8KspFgLE5_Ozemye-JVxOiPq7zL1UVDjcuCckibZRddNujWWVldG8KDVmRVUh1sdgbSL-EDqAL6AcFFkWQ0J9YbTs-1X52fSXljyxRdXD8f5L4xHVlZhCBCpvALmJE9XS2ZXXuw7p9rqYBRRNdoBSJCAWlakmIIQKRY2uZEf2z3Ioyrqc4TnQIoF2Gnn_2JHnc1Fzca6iPJddYMTytC4bLZLZ_5t7jS3eMcdMnyBjThoJo44g';
+
+//Env Variables :
+
+    const Region = process.env.REGION || 'eu';
+    const RefreshToken = process.env.REFRESH_TOKEN || 'Atzr|IwEBIKaDEcQEt-upWRDiYCpr9w3UXAs1Bpg9phpH6QYZ9QVk93RS28ip2kyS5T55f6M6mV_mLLU4jk6vbPQPJn8KspFgLE5_Ozemye-JVxOiPq7zL1UVDjcuCckibZRddNujWWVldG8KDVmRVUh1sdgbSL-EDqAL6AcFFkWQ0J9YbTs-1X52fSXljyxRdXD8f5L4xHVlZhCBCpvALmJE9XS2ZXXuw7p9rqYBRRNdoBSJCAWlakmIIQKRY2uZEf2z3Ioyrqc4TnQIoF2Gnn_2JHnc1Fzca6iPJddYMTytC4bLZLZ_5t7jS3eMcdMnyBjThoJo44g';
     const ClientId = process.env.SELLING_PARTNER_APP_CLIENT_ID || 'amzn1.application-oa2-client.fb2b1d1c45c040d79115cf4c440b8614';
     const ClientSecret = process.env.SELLING_PARTNER_APP_CLIENT_SECRET || '2b58f2a9ea358a58e5e78a3db5c312fdcdf56c69aabd0a4daab23b42023f16d7';
     const AWSAccessKey = process.env.AWS_ACCESS_KEY_ID || 'AKIAUWP7HSF63GXOMU7F';
     const AWSSecretAccessKey = process.env.AWS_SECRET_ACCESS_KEY || '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';
     const AWSSellingPartnerRole = process.env.AWS_SELLING_PARTNER_ROLE || 'arn:aws:iam::323194687869:role/SPAPIRole';
-*/
+
 const SellingPartnerAPI = require('amazon-sp-api');
 
 (async() => {
@@ -52,17 +55,17 @@ const SellingPartnerAPI = require('amazon-sp-api');
   console.log('Error->',e);
 }*/
   try {
-    //console.log('process.env.DATABASE_URL'+process.env.DATABASE_URL);
-    //console.log('AWS_ACCESS_KEY_ID'+process.env.AWS_ACCESS_KEY_ID);
+    console.log('process.env.DATABASE_URL->'+process.env.DATABASE_URL);
+    console.log('Region->'+Region);
     let sellingPartner = new SellingPartnerAPI({
-      region:'eu', // The region to use for the SP-API endpoints ("eu", "na" or "fe")
-      refresh_token:'Atzr|IwEBIKaDEcQEt-upWRDiYCpr9w3UXAs1Bpg9phpH6QYZ9QVk93RS28ip2kyS5T55f6M6mV_mLLU4jk6vbPQPJn8KspFgLE5_Ozemye-JVxOiPq7zL1UVDjcuCckibZRddNujWWVldG8KDVmRVUh1sdgbSL-EDqAL6AcFFkWQ0J9YbTs-1X52fSXljyxRdXD8f5L4xHVlZhCBCpvALmJE9XS2ZXXuw7p9rqYBRRNdoBSJCAWlakmIIQKRY2uZEf2z3Ioyrqc4TnQIoF2Gnn_2JHnc1Fzca6iPJddYMTytC4bLZLZ_5t7jS3eMcdMnyBjThoJo44g', // The refresh token of your app user
+      region:Region, //'eu', // The region to use for the SP-API endpoints ("eu", "na" or "fe")
+      refresh_token:RefreshToken, //'Atzr|IwEBIKaDEcQEt-upWRDiYCpr9w3UXAs1Bpg9phpH6QYZ9QVk93RS28ip2kyS5T55f6M6mV_mLLU4jk6vbPQPJn8KspFgLE5_Ozemye-JVxOiPq7zL1UVDjcuCckibZRddNujWWVldG8KDVmRVUh1sdgbSL-EDqAL6AcFFkWQ0J9YbTs-1X52fSXljyxRdXD8f5L4xHVlZhCBCpvALmJE9XS2ZXXuw7p9rqYBRRNdoBSJCAWlakmIIQKRY2uZEf2z3Ioyrqc4TnQIoF2Gnn_2JHnc1Fzca6iPJddYMTytC4bLZLZ_5t7jS3eMcdMnyBjThoJo44g', // The refresh token of your app user
       credentials: {
-        SELLING_PARTNER_APP_CLIENT_ID:'amzn1.application-oa2-client.fb2b1d1c45c040d79115cf4c440b8614',
-        SELLING_PARTNER_APP_CLIENT_SECRET:'2b58f2a9ea358a58e5e78a3db5c312fdcdf56c69aabd0a4daab23b42023f16d7',
-        AWS_ACCESS_KEY_ID:'AKIAUWP7HSF63GXOMU7F',
-        AWS_SECRET_ACCESS_KEY:'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',
-        AWS_SELLING_PARTNER_ROLE:'arn:aws:iam::323194687869:role/SPAPIRole'
+        SELLING_PARTNER_APP_CLIENT_ID:ClientId, //'amzn1.application-oa2-client.fb2b1d1c45c040d79115cf4c440b8614',
+        SELLING_PARTNER_APP_CLIENT_SECRET:ClientSecret, //'2b58f2a9ea358a58e5e78a3db5c312fdcdf56c69aabd0a4daab23b42023f16d7',
+        AWS_ACCESS_KEY_ID:AWSAccessKey, //'AKIAUWP7HSF63GXOMU7F',
+        AWS_SECRET_ACCESS_KEY:AWSSecretAccessKey, //'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',
+        AWS_SELLING_PARTNER_ROLE:AWSSellingPartnerRole, //'arn:aws:iam::323194687869:role/SPAPIRole'
         }
     });
     let res = await sellingPartner.callAPI({
@@ -91,11 +94,11 @@ const SellingPartnerAPI = require('amazon-sp-api');
   })
 
   //DB
-/*.get('/db', async (req, res) => {
+.get('/db', async (req, res) => {
   try {
     
     const client = await pool.connect();
-    const result = await client.query('SELECT * FROM salesforce.orders__c');
+    const result = await client.query('SELECT * FROM test_table');
     const results = { 'results': (result) ? result.rows : null};
     console.log('DB75 Response->',result)
     res.send(results);
@@ -105,13 +108,13 @@ const SellingPartnerAPI = require('amazon-sp-api');
     console.error(err);
     res.send("Error->" + err);
   }
-})*/
+})
 //
   app.post('/',(req, res) => {
     
  //Insert Operation :
 
- if(orderDetails != []){
+/* if(orderDetails != []){
     for(let i in orderDetails){
      if(orderDetails[i].AmazonOrderId != "" && orderDetails[i].SalesChannel != "" && orderDetails[i].OrderStatus != "" && orderDetails[i].MarketplaceId != "" && orderDetails[i].OrderType != "" && orderDetails[i].PurchaseDate != ""){
           pool.query(`INSERT INTO salesforce.orders__c(AmazonOrderId__c, SalesChannel__c, OrderStatus__c, MarketplaceId__c, OrderType__c, PurchaseDate__c)VALUES($1,$2,$3,$4,$5,$6)`, [`${orderDetails[i].AmazonOrderId}`,`${orderDetails[i].SalesChannel}`, `${orderDetails[i].OrderStatus}`, `${orderDetails[i].MarketplaceId}`, `${orderDetails[i].OrderType}`, `${orderDetails[i].PurchaseDate}`], (err, res) => {
@@ -125,7 +128,7 @@ const SellingPartnerAPI = require('amazon-sp-api');
        
     }
     }
-  }
+  }*/
  
    
 
