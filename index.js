@@ -2,7 +2,7 @@
 require('dotenv').config;
 const express = require("express")
 const app = express()
-const bodyParser = require('body-parser');
+const bodyParser = require('express');
 app.use(bodyParser.urlencoded({extended:true}))
 // use the express-static middleware
 //app.use(express.static("public"))
@@ -78,7 +78,7 @@ const SellingPartnerAPI = require('amazon-sp-api');
         LastUpdatedAfter : '2020-09-26'
         }
     });
-    console.log('Response->',JSON.stringify(res.Orders));
+    console.log('Response ->',JSON.stringify(res.Orders));
     
     if(res != []){
       var orderDetails = [];
@@ -87,9 +87,9 @@ const SellingPartnerAPI = require('amazon-sp-api');
       }
     }
     //console.log('orderDetails->',JSON.stringify(orderDetails));
-    console.log('orderDetails Length->',orderDetails.length);
-    console.log('order total amt->'+orderDetails[1].OrderTotal.Amount);
-    console.log('order status->'+orderDetails[1].OrderStatus);
+    console.log('orderDetails Length  ->',orderDetails.length);
+    //console.log('order total amt->'+orderDetails[1].OrderTotal.Amount);
+    //console.log('order status->'+orderDetails[1].OrderStatus);
 
     app.get("", function (req, res) {
     res.sendFile(__dirname+"/index.html"); 
@@ -100,7 +100,7 @@ const SellingPartnerAPI = require('amazon-sp-api');
   try {
     
     const client = await pool.connect();
-    const result = await client.query('SELECT * FROM test_table');
+    const result = await client.query('SELECT * FROM salesforce.order');
     const results = { 'results': (result) ? result.rows : null};
     console.log('DB75 Response->',result)
     res.send(results);
@@ -108,7 +108,7 @@ const SellingPartnerAPI = require('amazon-sp-api');
     client.release();
   } catch (err) {
     console.error(err);
-    res.send("Error->" + err);
+    res.send("Error ->" + err);
   }
 })
 //
@@ -118,10 +118,11 @@ const SellingPartnerAPI = require('amazon-sp-api');
 
  //Insert Operation :
 
-/* if(orderDetails != []){
+ if(orderDetails != []){
     for(let i in orderDetails){
-     if(orderDetails[i].AmazonOrderId != "" && orderDetails[i].SalesChannel != "" && orderDetails[i].OrderStatus != "" && orderDetails[i].MarketplaceId != "" && orderDetails[i].OrderType != "" && orderDetails[i].PurchaseDate != ""){
-          pool.query(`INSERT INTO salesforce.orders__c(AmazonOrderId__c, SalesChannel__c, OrderStatus__c, MarketplaceId__c, OrderType__c, PurchaseDate__c)VALUES($1,$2,$3,$4,$5,$6)`, [`${orderDetails[i].AmazonOrderId}`,`${orderDetails[i].SalesChannel}`, `${orderDetails[i].OrderStatus}`, `${orderDetails[i].MarketplaceId}`, `${orderDetails[i].OrderType}`, `${orderDetails[i].PurchaseDate}`], (err, res) => {
+      if(orderDetails[i].OrderStatus == 'Canceled')orderDetails[i].OrderStatus = 'Cancelled';
+     if(orderDetails[i].AmazonOrderId != "" && orderDetails[i].SalesChannel != "" && orderDetails[i].OrderStatus != "" && orderDetails[i].MarketplaceId != "" && orderDetails[i].OrderType != "" && orderDetails[i].PurchaseDate != "" && orderDetails[i].OrderTotal.Amount != "" && orderDetails[i].PaymentMethodDetails != "" && orderDetails[i].ShipmentServiceLevelCategory != "" && orderDetails[i].NumberOfItemsShipped != "" && orderDetails[i].IsReplacementOrder != ""){
+          pool.query(`INSERT INTO salesforce.order(ERP7__AmazonOrderId__c, ERP7__SalesChannel__c, Status, ERP7__MarketplaceId__c, ERP7__Type__c, ERP7__Book_Date__c, ERP7__Payment_Mode__c, ERP7__Shipment_Type__c, ERP7__Amount__c, ERP7__Shipped_Quantity__c, ERP7__Is_Back_Order__c)VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)`, [`${orderDetails[i].AmazonOrderId}`,`${orderDetails[i].SalesChannel}`, `${orderDetails[i].OrderStatus}`, `${orderDetails[i].MarketplaceId}`, `${orderDetails[i].OrderType}`, `${orderDetails[i].PurchaseDate}`, `${orderDetails[i].PaymentMethodDetails}`, `${orderDetails[i].ShipmentServiceLevelCategory}`, `${orderDetails[i].OrderTotal.Amount}`, `${orderDetails[i].NumberOfItemsShipped}`, `${orderDetails[i].IsReplacementOrder}`], (err, res) => {
             if (err) {
                 console.log("Error - Failed to insert data into amazon_orders");
                 console.log(err);
@@ -132,7 +133,7 @@ const SellingPartnerAPI = require('amazon-sp-api');
        
     }
     }
-  }*/
+  }
  
    
 
