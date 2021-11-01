@@ -88,6 +88,8 @@ const SellingPartnerAPI = require('amazon-sp-api');
     }
     //console.log('orderDetails->',JSON.stringify(orderDetails));
     console.log('orderDetails Length->',orderDetails.length);
+    console.log('order total amt->'+orderDetails[1].OrderTotal.Amount);
+    console.log('order status->'+orderDetails[1].OrderStatus);
 
     app.get("", function (req, res) {
     res.sendFile(__dirname+"/index.html"); 
@@ -112,6 +114,8 @@ const SellingPartnerAPI = require('amazon-sp-api');
 //
   app.post('/',(req, res) => {
     
+
+
  //Insert Operation :
 
 /* if(orderDetails != []){
