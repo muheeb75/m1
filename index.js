@@ -27,6 +27,7 @@ const Port = process.env.PORT || 3000;
     const AWSSellingPartnerRole = process.env.AWS_SELLING_PARTNER_ROLE || 'arn:aws:iam::323194687869:role/SPAPIRole';
 
 const SellingPartnerAPI = require('amazon-sp-api');
+const e = require('express');
 
 (async() => {
  /* try {
@@ -122,7 +123,7 @@ const SellingPartnerAPI = require('amazon-sp-api');
    var AccountId = '00106000023CXXzAAO'; 
     for(let i in orderDetails){
      if(orderDetails[i].OrderStatus == 'Canceled')orderDetails[i].OrderStatus = 'Cancelled';
-     if(orderDetails[i].AmazonOrderId != "" && orderDetails[i].SalesChannel != "" && orderDetails[i].OrderStatus != "" && orderDetails[i].MarketplaceId != "" && orderDetails[i].OrderType != "" && orderDetails[i].PurchaseDate != "" && orderDetails[i].OrderTotal.Amount != "" && orderDetails[i].PaymentMethodDetails != "" && orderDetails[i].ShipmentServiceLevelCategory != "" && orderDetails[i].NumberOfItemsShipped != "" && orderDetails[i].IsReplacementOrder != ""){
+     if(orderDetails[i].AmazonOrderId != "" && orderDetails[i].SalesChannel != "" && orderDetails[i].OrderStatus != "" && orderDetails[i].MarketplaceId != "" && orderDetails[i].OrderType != "" && orderDetails[i].PurchaseDate != "" && AccountId != ""){
          // pool.query(`INSERT INTO salesforce.order(ERP7__AmazonOrderId__c, ERP7__SalesChannel__c, Status, ERP7__MarketplaceId__c, ERP7__Type__c, ERP7__Book_Date__c, ERP7__Payment_Mode__c, ERP7__Shipment_Type__c, ERP7__Amount__c, ERP7__Shipped_Quantity__c, ERP7__Is_Back_Order__c)VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)`, [`${orderDetails[i].AmazonOrderId}`,`${orderDetails[i].SalesChannel}`, `${orderDetails[i].OrderStatus}`, `${orderDetails[i].MarketplaceId}`, `${orderDetails[i].OrderType}`, `${orderDetails[i].PurchaseDate}`, `${orderDetails[i].PaymentMethodDetails}`, `${orderDetails[i].ShipmentServiceLevelCategory}`, `${orderDetails[i].OrderTotal.Amount}`, `${orderDetails[i].NumberOfItemsShipped}`, `${orderDetails[i].IsReplacementOrder}`], (err, res) => {
           pool.query(`INSERT INTO salesforce.order(ERP7__AmazonOrderId__c, ERP7__SalesChannel__c, Status, ERP7__MarketplaceId__c, ERP7__Type__c, EffectiveDate, AccountId)VALUES($1,$2,$3,$4,$5,$6,$7)`, [`${orderDetails[i].AmazonOrderId}`,`${orderDetails[i].SalesChannel}`, `${orderDetails[i].OrderStatus}`, `${orderDetails[i].MarketplaceId}`, `${orderDetails[i].OrderType}`, `${orderDetails[i].PurchaseDate}`,`${AccountId}`], (err, res) => {   
          if (err) {
@@ -133,6 +134,9 @@ const SellingPartnerAPI = require('amazon-sp-api');
             }
         });
        
+   }
+   else{
+     alert('No Orders Found to sync');
    }
     }
   }
