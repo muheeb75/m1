@@ -143,13 +143,13 @@ const e = require('express');
   }
  
    
-
-    res.send(`<ul>
+    res.sendFile(__dirname+"/success.html"); 
+   /* res.send(`<ul>
     <li><h1>You heave successfully synced total "${JSON.stringify(orderDetails.length)}" amazon orders to the salesforce.</h1></li>
     <br/>
     <a href="https://aqxolt-amazon.herokuapp.com" target="_blank">Back</a>
     <br/>
-  </ul>`);
+  </ul>`);*/
   })
 
 
