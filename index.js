@@ -130,9 +130,7 @@ const e = require('express');
          if (err) {
                 console.log("Error-> Failed to insert data into amazon_orders");
                 console.log(err);
-                alert('Server Problem');
             }else{
-              alert('You heave successfully synced total'+ orderDetails.length +'amazon orders to the salesforce.');
               console.log('DB res->',res);
             }
         });
@@ -144,14 +142,14 @@ const e = require('express');
     }
   }
  
-  
+   
 
-  /*  res.send(`<ul>
+    res.send(`<ul>
     <li><h1>You heave successfully synced total "${JSON.stringify(orderDetails.length)}" amazon orders to the salesforce.</h1></li>
     <br/>
     <a href="https://aqxolt-amazon.herokuapp.com" target="_blank">Back</a>
     <br/>
-  </ul>`);*/
+  </ul>`);
   })
 
 
