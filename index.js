@@ -11,7 +11,7 @@ const pool = new Pool({
     rejectUnauthorized: false
   }
 });
-const Port = process.env.PORT || 5000;
+const Port = process.env.PORT || 2000;
 
 //Heroku Env Variables :
     const Region = process.env.REGION || 'eu';
@@ -76,7 +76,7 @@ const e = require('express');
 
     }
     
-    console.log('Response All Items ->', JSON.stringify(AllItems));
+    console.log('Response All Items ->', AllItems);
     
      //Product sync:
       
@@ -145,15 +145,17 @@ const e = require('express');
  //On click Insert Sync Products Operation
   app.post('/syncProducts',(req, res) => {
 
-    console.log('ProductInfo ->', JSON.stringify(AllItems[0].OrderItems[0].OrderItemId));
+    console.log('ProductInfo ->', JSON.stringify(AllItems));
      //Upsert Operation for orderItems:
     var OrderItemsList = [];
     if(AllItems != []){
       for(let i in AllItems){
-        OrderItemsList.push(AllItems[i].OrderItems[0]); 
+       for(let j in AllItems[i].OrderItems){
+        OrderItemsList.push(AllItems[i].OrderItems[j]); 
+       }
       }
     }
-    console.log('OrderItemsList ->', OrderItemsList);
+    console.log('OrderItemsList ->', JSON.stringify(OrderItemsList));
      if(OrderItemsList!= []){
       var Amazon = true;
       var isActive = true;
