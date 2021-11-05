@@ -156,9 +156,11 @@ const e = require('express');
     console.log('OrderItemsList ->', OrderItemsList);
      if(OrderItemsList!= []){
       var Amazon = true;
+      var isActive = true;
+      var trackInventory = true;
       for(let i in OrderItemsList){
         if(OrderItemsList[i].OrderItemId != "" && OrderItemsList[i].ItemPrice.Amount != "" && OrderItemsList[i].ASIN != "" && OrderItemsList[i].SellerSKU != "" && OrderItemsList[i].Title != ""){
-          pool.query(`INSERT INTO salesforce.product2(ERP7__OrderItemId__c, ERP7__Amazon__c, Name, ERP7__SKU__c, ERP7__ASIN_Code__c, ERP7__Price_Entry_Amount__c)VALUES($1,$2,$3,$4,$5,$6) ON CONFLICT (ERP7__OrderItemId__c) DO NOTHING` , [`${OrderItemsList[i].OrderItemId}`,`${Amazon}`,`${OrderItemsList[i].Title}`, `${OrderItemsList[i].SellerSKU}`,`${OrderItemsList[i].ASIN}`, `${OrderItemsList[i].ItemPrice.Amount}`], (err, res) => {
+          pool.query(`INSERT INTO salesforce.product2(ERP7__OrderItemId__c, ERP7__Amazon__c, Name, ERP7__SKU__c, ERP7__ASIN_Code__c, ERP7__Price_Entry_Amount__c,IsActive,ERP7__Track_Inventory__c)VALUES($1,$2,$3,$4,$5,$6,$7,$8) ON CONFLICT (ERP7__OrderItemId__c) DO NOTHING` , [`${OrderItemsList[i].OrderItemId}`,`${Amazon}`,`${OrderItemsList[i].Title}`, `${OrderItemsList[i].SellerSKU}`,`${OrderItemsList[i].ASIN}`, `${OrderItemsList[i].ItemPrice.Amount}`,`${isActive}`,`${trackInventory}`], (err, res) => {
           if (err) {
                 console.log("Error-> Failed to insert data into amazon_orders_items");
                 console.log(err);
