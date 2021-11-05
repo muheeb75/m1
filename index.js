@@ -1,23 +1,19 @@
-// create an express app
 require('dotenv').config;
 const express = require("express")
 const app = express()
 const bodyParser = require('express');
 app.use(bodyParser.urlencoded({extended:true}))
-// use the express-static middleware
-//app.use(express.static("public"))
-
 const { Pool } = require('pg');
+
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: {
     rejectUnauthorized: false
   }
 });
-const Port = process.env.PORT || 3000;
+const Port = process.env.PORT || 5000;
 
-//Env Variables :
-
+//Heroku Env Variables :
     const Region = process.env.REGION || 'eu';
     const RefreshToken = process.env.REFRESH_TOKEN || 'Atzr|IwEBIKaDEcQEt-upWRDiYCpr9w3UXAs1Bpg9phpH6QYZ9QVk93RS28ip2kyS5T55f6M6mV_mLLU4jk6vbPQPJn8KspFgLE5_Ozemye-JVxOiPq7zL1UVDjcuCckibZRddNujWWVldG8KDVmRVUh1sdgbSL-EDqAL6AcFFkWQ0J9YbTs-1X52fSXljyxRdXD8f5L4xHVlZhCBCpvALmJE9XS2ZXXuw7p9rqYBRRNdoBSJCAWlakmIIQKRY2uZEf2z3Ioyrqc4TnQIoF2Gnn_2JHnc1Fzca6iPJddYMTytC4bLZLZ_5t7jS3eMcdMnyBjThoJo44g';
     const ClientId = process.env.SELLING_PARTNER_APP_CLIENT_ID || 'amzn1.application-oa2-client.fb2b1d1c45c040d79115cf4c440b8614';
@@ -30,31 +26,6 @@ const SellingPartnerAPI = require('amazon-sp-api');
 const e = require('express');
 
 (async() => {
- /* try {
-  let sellingPartner =
-  new SellingPartnerAPI({
-  region:'eu',
-  refresh_token:'Atzr|IwEBIKaDEcQEt-upWRDiYCpr9w3UXAs1Bpg9phpH6QYZ9QVk93RS28ip2kyS5T55f6M6mV_mLLU4jk6vbPQPJn8KspFgLE5_Ozemye-JVxOiPq7zL1UVDjcuCckibZRddNujWWVldG8KDVmRVUh1sdgbSL-EDqAL6AcFFkWQ0J9YbTs-1X52fSXljyxRdXD8f5L4xHVlZhCBCpvALmJE9XS2ZXXuw7p9rqYBRRNdoBSJCAWlakmIIQKRY2uZEf2z3Ioyrqc4TnQIoF2Gnn_2JHnc1Fzca6iPJddYMTytC4bLZLZ_5t7jS3eMcdMnyBjThoJo44g', 
-  credentials: {
-    SELLING_PARTNER_APP_CLIENT_ID:'amzn1.application-oa2-client.fb2b1d1c45c040d79115cf4c440b8614',
-    SELLING_PARTNER_APP_CLIENT_SECRET:'2b58f2a9ea358a58e5e78a3db5c312fdcdf56c69aabd0a4daab23b42023f16d7',
-    AWS_ACCESS_KEY_ID:'AKIAUWP7HSF63GXOMU7F',
-    AWS_SECRET_ACCESS_KEY:'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',
-    AWS_SELLING_PARTNER_ROLE:'arn:aws:iam::323194687869:role/SPAPIRole'
-    },
-  });
- 
-  let manageInventoryData = await sellingPartner.callAPI({
-  operation: 'getInventorySummaries',
-  query: {
-  details: true,
-  granularityType: 'Marketplace',
-  marketplaceIds: 'A1F83G8C2ARO7P'
-  }
-  });
-} catch(e){
-  console.log('Error->',e);
-}*/
   try {
     console.log('process.env.DATABASE_URL->'+process.env.DATABASE_URL);
     console.log('Region->'+Region);
@@ -68,66 +39,92 @@ const e = require('express');
         AWS_SECRET_ACCESS_KEY:AWSSecretAccessKey, //'zpUuXrFGVYllU93z94LCkiwfzjL+D1p81ptn4Kek',
         AWS_SELLING_PARTNER_ROLE:AWSSellingPartnerRole, //'arn:aws:iam::323194687869:role/SPAPIRole'
         }
-    });
-    let res = await sellingPartner.callAPI({
-      operation:'getOrders',
-      endpoint:'orders',
-      query: {
-        //details: true,
-        //granularityType: 'Marketplace',
-        MarketplaceIds: 'A1F83G8C2ARO7P',
-        LastUpdatedAfter : '2020-09-26'
-        }
-    });
-    console.log('Response ->',JSON.stringify(res.Orders));
-    
-    if(res != []){
-      var orderDetails = [];
-      for(let i in res.Orders){
-          if(res.Orders[i].AmazonOrderId != "")orderDetails.push(res.Orders[i]);
+      });
+      
+      //Order sync:
+        let res = await sellingPartner.callAPI({
+        operation:'getOrders',
+        endpoint:'orders',
+        query: {
+          //details: true,
+          //granularityType: 'Marketplace',
+          MarketplaceIds: 'A1F83G8C2ARO7P',
+          LastUpdatedAfter : '2020-09-26'
+          }
+         });
+         console.log('Response Orders ->',JSON.stringify(res.Orders));
+         var AmazonOrderIdList = [];
+         for(let i in res.Orders){
+           if(res.Orders[i].AmazonOrderId != "") AmazonOrderIdList.push(res.Orders[i].AmazonOrderId);
+         }
+         
+      //Sync OrderItems
+      console.log('Response AmazonOrderId ->',JSON.stringify(AmazonOrderIdList));
+      var AllItems = [];
+      for(let i in AmazonOrderIdList){
+      var OrderItems = await sellingPartner.callAPI({
+        operation:'getOrderItems',
+     // endpoint:'orders',
+     
+      path:{
+        orderId:AmazonOrderIdList[i]
       }
-    }
-    //console.log('orderDetails->',JSON.stringify(orderDetails));
-    console.log('orderDetails Length  ->',orderDetails.length);
-    //console.log('order total amt->'+orderDetails[1].OrderTotal.Amount);
-    //console.log('order status->'+orderDetails[1].OrderStatus);
+    
+      });
+      AllItems.push(OrderItems);
+     // console.log('Response OrderItems ->',OrderItems);
 
-    app.get("", function (req, res) {
-    res.sendFile(__dirname+"/index.html"); 
+    }
+    
+    console.log('Response All Items ->', JSON.stringify(AllItems));
+    
+     //Product sync:
+      
+    /*  if(res != []){
+        var orderDetails = [];
+        for(let i in res.Orders){
+          if(res.Orders[i].AmazonOrderId != "")orderDetails.push(res.Orders[i]);
+        }
+      }*/
+      //console.log('orderDetails->',JSON.stringify(orderDetails));
+     // console.log('orderDetails Length  ->',orderDetails.length);
+      //console.log('order total amt->'+orderDetails[1].OrderTotal.Amount);
+      //console.log('order status->'+orderDetails[1].OrderStatus);
+      app.get("", function (req, res) {
+      res.sendFile(__dirname+"/index.html"); 
   })
 
-  //DB
-.get('/db', async (req, res) => {
-  try {
+    //DB test
+    /*.get('/db', async (req, res) => {
+      try {
+        
+        const client = await pool.connect();
+        const result = await client.query('SELECT * FROM salesforce.order');
+        const results = { 'results': (result) ? result.rows : null};
+        console.log('DB75 Response->',result)
+        res.send(results);
+        res.json({ error: err })
+        client.release();
+      } catch (err) {
+        console.error(err);
+        res.send("Error ->" + err);
+      }
+    })*/
+    //
+
+  //On click Insert Sync Orders Operation
+  app.post('/syncOrders',(req, res) => {
     
-    const client = await pool.connect();
-    const result = await client.query('SELECT * FROM salesforce.order');
-    const results = { 'results': (result) ? result.rows : null};
-    console.log('DB75 Response->',result)
-    res.send(results);
-    res.json({ error: err })
-    client.release();
-  } catch (err) {
-    console.error(err);
-    res.send("Error ->" + err);
-  }
-})
-//
-  app.post('/',(req, res) => {
-    
-
-
- //Insert Operation :
-
- if(orderDetails != []){
-   var AccountId = '00106000023CXXzAAO'; 
-   var isActive = true;
-    for(let i in orderDetails){
-     if(orderDetails[i].OrderStatus == 'Canceled')orderDetails[i].OrderStatus = 'Cancelled';
-     if(orderDetails[i].AmazonOrderId != "" && orderDetails[i].SalesChannel != "" && orderDetails[i].OrderStatus != "" && orderDetails[i].MarketplaceId != "" && orderDetails[i].OrderType != "" && orderDetails[i].PurchaseDate != "" && AccountId != ""){
+    //Upsert Operation for Orders:
+    if(orderDetails != []){
+      var AccountId = '00106000023CXXzAAO'; 
+      var isActive = true;
+      for(let i in orderDetails){
+        if(orderDetails[i].OrderStatus == 'Canceled')orderDetails[i].OrderStatus = 'Cancelled';
+        if(orderDetails[i].AmazonOrderId != "" && orderDetails[i].SalesChannel != "" && orderDetails[i].OrderStatus != "" && orderDetails[i].MarketplaceId != "" && orderDetails[i].OrderType != "" && orderDetails[i].PurchaseDate != "" && AccountId != ""){
           pool.query(`INSERT INTO salesforce.order(ERP7__AmazonOrderId__c, ERP7__SalesChannel__c, Status, ERP7__MarketplaceId__c, ERP7__Type__c, EffectiveDate, ERP7__Payment_Mode__c, ERP7__Shipment_Type__c, ERP7__Amount__c, ERP7__Shipped_Quantity__c, ERP7__Is_Back_Order__c,AccountId,ERP7__Active__c)VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13) ON CONFLICT (ERP7__AmazonOrderId__c) DO NOTHING` , [`${orderDetails[i].AmazonOrderId}`,`${orderDetails[i].SalesChannel}`, `${orderDetails[i].OrderStatus}`, `${orderDetails[i].MarketplaceId}`, `${orderDetails[i].OrderType}`, `${orderDetails[i].PurchaseDate}`, `${orderDetails[i].PaymentMethodDetails}`, `${orderDetails[i].ShipmentServiceLevelCategory}`, `${orderDetails[i].OrderTotal.Amount}`, `${orderDetails[i].NumberOfItemsShipped}`, `${orderDetails[i].IsReplacementOrder}`, `${AccountId}`, `${isActive}`], (err, res) => {
           //pool.query(`INSERT INTO salesforce.order(ERP7__AmazonOrderId__c, ERP7__SalesChannel__c, Status, ERP7__MarketplaceId__c, ERP7__Type__c, EffectiveDate, AccountId)VALUES($1,$2,$3,$4,$5,$6,$7)`, [`${orderDetails[i].AmazonOrderId}`,`${orderDetails[i].SalesChannel}`, `${orderDetails[i].OrderStatus}`, `${orderDetails[i].MarketplaceId}`, `${orderDetails[i].OrderType}`, `${orderDetails[i].PurchaseDate}`,`${AccountId}`], (err, res) => {   
-         if (err) {
+          if (err) {
                 console.log("Error-> Failed to insert data into amazon_orders");
                 console.log(err);
             }else{
@@ -135,32 +132,56 @@ const e = require('express');
             }
         });
        
-   }
-   else{
-     alert('No Orders Found to sync');
-   }
+       }
+        else{
+      alert('No Orders Found to sync');
+      }
     }
   }
- 
-   
-    res.sendFile(__dirname+"/success.html"); 
-   /* res.send(`<ul>
-    <li><h1>You heave successfully synced total "${JSON.stringify(orderDetails.length)}" amazon orders to the salesforce.</h1></li>
-    <br/>
-    <a href="https://aqxolt-amazon.herokuapp.com" target="_blank">Back</a>
-    <br/>
-  </ul>`);*/
+    //Nav to Success Screen
+    res.sendFile(__dirname+"/success.html");
   })
 
+ //On click Insert Sync Products Operation
+  app.post('/syncProducts',(req, res) => {
+
+    console.log('ProductInfo ->', JSON.stringify(AllItems[0].OrderItems[0].OrderItemId));
+     //Upsert Operation for orderItems:
+    var OrderItemsList = [];
+    if(AllItems != []){
+      for(let i in AllItems){
+        OrderItemsList.push(AllItems[i].OrderItems[0]); 
+      }
+    }
+    console.log('OrderItemsList ->', OrderItemsList);
+     if(OrderItemsList!= []){
+      var Amazon = true;
+      for(let i in OrderItemsList){
+        if((OrderItemsList[i].OrderItemId != "" && OrderItemsList[i].ItemPrice.Amount != "" && OrderItemsList[i].ASIN != "" && OrderItemsList[i].SellerSKU != "" && OrderItemsList[i].Title != ""){}
+          pool.query(`INSERT INTO salesforce.product2(ERP7__OrderItemId__c, ERP7__Amazon__c, Name, ERP7__SKU__c, ERP7__ASIN_Code__c, ERP7__Price_Entry_Amount__c)VALUES($1,$2,$3,$4,$5,$6) ON CONFLICT (ERP7__OrderItemId__c) DO NOTHING` , [`${OrderItemsList[i].OrderItemId}`,`${Amazon}`,`${OrderItemsList[i].Title}`, `${OrderItemsList[i].SellerSKU}`,`${OrderItemsList[i].ASIN}`, `${OrderItemsList[i].ItemPrice.Amount}`], (err, res) => {
+          if (err) {
+                console.log("Error-> Failed to insert data into amazon_orders_items");
+                console.log(err);
+            }
+            else{
+              console.log('DB res->',res);
+            }
+          })
+      }
+    }
+
+    //Nav to Success Screen
+    res.sendFile(__dirname+"/success.html"); 
+  })
 
   // start the server listening for requests
   app.listen(Port, 
     () => console.log("Server is running..."));
     //
-  } catch(e){
+  }catch(e){
     console.log('Error-> ',e);
   }
-})();
+  })();
 
 
     
