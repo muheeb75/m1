@@ -111,17 +111,19 @@ const e = require('express');
         console.log('DB75 Response->',result) 
         var productList = [];
         var mainProductList = [];
-        productList.push(result.rows);
+        for(let i in result.rows){
+        productList.push(result.rows[i]);
+        }
        // res.send(JSON.stringify(OrderItemsList[0].OrderItemId + result.rows[0].erp7__orderitemid__c));
         res.send(`${JSON.stringify(productList)}`);
         if(result.rows != [] && OrderItemsList != []){
+          alert('hi 0');
           for(let i in productList){
             for(let j in OrderItemsList){
              // console.log("=>"++"="+)
               if(productList[i].erp7__orderitemid__c == OrderItemsList[j].OrderItemId){
-                alert();
+                alert('hi 1');
                 mainProductList.push(productList[i]);
-                
               }
             }
           }
