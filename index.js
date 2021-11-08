@@ -112,9 +112,9 @@ const e = require('express');
         var productList = [];
         var mainProductList = [];
         productList.push(result.rows);
-       
+        res.send(JSON.stringify(OrderItemsList[0].OrderItemId));
         //res.send(`<h1>${JSON.stringify(productList.rows)}<h1>`);
-        if(productList != [] && OrderItemsList != []){
+       /* if(productList != [] && OrderItemsList != []){
           for(let i in productList){
             for(let j in OrderItemsList){
               if(productList[i].ERP7__OrderItemId__c == OrderItemsList[j].OrderItemId){
@@ -122,8 +122,8 @@ const e = require('express');
               }
             }
           }
-        }
-        res.send(JSON.stringify(mainProductList));
+        }*/
+        
         console.log('main Product List->',JSON.stringify(mainProductList));
        // res.send(JSON.stringify(mainProductList));
       } catch (err) {
