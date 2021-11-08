@@ -104,6 +104,9 @@ const e = require('express');
     //DB test
     .get('/db', async (req, res) => {
       try {
+        var productList = [];
+        var mainProductList = [];
+        productList.push(result);
         var ProductIds = [];
         for(let i in productList){
           if(productList[i].ERP7__OrderItemId__c != []){
