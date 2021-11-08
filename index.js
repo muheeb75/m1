@@ -85,14 +85,6 @@ const e = require('express');
        }
       }
     }
-
-    const client = await pool.connect();
-    const result = await client.query('SELECT * FROM salesforce.product2');
-    const results = { 'results': (result) ? result.rows : null};
-    console.log('MP-DB-75 Response->',result);
-    /*if(result != ""){
-
-    }*/
      //Product sync:
       
     /*  if(res != []){
@@ -110,19 +102,19 @@ const e = require('express');
   })
 
     //DB test
-   /* .get('/db', async (req, res) => {
+    .get('/db', async (req, res) => {
       try {
         
         const client = await pool.connect();
         const result = await client.query('SELECT * FROM salesforce.product2');
         const results = { 'results': (result) ? result.rows : null};
-        console.log('DB75 Response->',result)
+        console.log('DB75 Response->',result)   
         
       } catch (err) {
         console.error(err);
         res.send("Error ->" + err);
       }
-    })*/
+    })
     //
 
   //On click Insert Sync Orders Operation
