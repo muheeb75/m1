@@ -109,9 +109,9 @@ const e = require('express');
         const result = await client.query('SELECT * FROM salesforce.product2');
         const results = { 'results': (result) ? result.rows : null};
         console.log('DB75 Response->',result) 
-        var productList = [];
+        var productList = results.rows;
         var mainProductList = [];
-        productList.push(result.rows);
+        //productList.push(result.rows);
        // res.send(JSON.stringify(OrderItemsList[0].OrderItemId + result.rows[0].erp7__orderitemid__c));
         res.send(`${JSON.stringify(productList)}`);
         if(result.rows != [] && OrderItemsList != []){
