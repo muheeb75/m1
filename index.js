@@ -108,10 +108,10 @@ const e = require('express');
         const result = await client.query(`SELECT * FROM salesforce.product2 WHERE ERP7__OrderItemId__c IN (${OrderItemsList})`);
         const results = { 'results': (result) ? result.rows : null};
         console.log('DB75 Response->',result) 
-        var productList = [];
-        var mainProductList = [];
-        productList.push(result);
-        res.send(JSON.stringify(productList));
+        //var productList = [];
+        //var mainProductList = [];
+       // productList.push(result);
+        res.send(JSON.stringify(result));
         //res.send(`<h1>${JSON.stringify(productList[0].rows.ERP7__OrderItemId__c)}<h1>`);
        /* if(productList != [] && OrderItemsList != []){
           for(let i in productList){
