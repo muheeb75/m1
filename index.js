@@ -113,8 +113,8 @@ const e = require('express');
         var mainProductList = [];
         productList.push(result);
         //res.send(JSON.stringify(productList));
-        res.send(`<h1>${JSON.stringify(productList[0].rows.ERP7__OrderItemId__c)}<h1>`);
-        if(productList != [] && OrderItemsList != []){
+        res.send(`<h1>${JSON.stringify(productList[0].ERP7__OrderItemId__c)}<h1>`);
+       /* if(productList != [] && OrderItemsList != []){
           for(let i in productList){
             for(let j in OrderItemsList){
               if(productList[i].ERP7__OrderItemId__c == OrderItemsList[j].OrderItemId){
@@ -122,7 +122,7 @@ const e = require('express');
               }
             }
           }
-        }
+        }*/
         console.log('main Product List->',JSON.stringify(mainProductList));
        // res.send(JSON.stringify(mainProductList));
       } catch (err) {
