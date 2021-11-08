@@ -112,6 +112,7 @@ const e = require('express');
         var productList = [];
         var mainProductList = [];
         productList.push(result);
+        res.send(JSON.stringify(productList));
         if(productList != [] && OrderItemsList != []){
           for(let i in productList){
             for(let j in OrderItemsList){
@@ -122,7 +123,7 @@ const e = require('express');
           }
         }
         console.log('main Product List->',JSON.stringify(mainProductList));
-        res.send(JSON.stringify(mainProductList));
+       // res.send(JSON.stringify(mainProductList));
       } catch (err) {
         console.error(err);
         res.send("Error ->" + err);
