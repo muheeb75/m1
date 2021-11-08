@@ -128,7 +128,7 @@ const e = require('express');
         }
         
         console.log('main Product List->',JSON.stringify(mainProductList));
-        //res.send(JSON.stringify(mainProductList));
+        res.send(JSON.stringify(mainProductList));
       } catch (err) {
         console.error(err);
         res.send("Error ->" + err);
