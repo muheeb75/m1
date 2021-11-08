@@ -112,7 +112,7 @@ const e = require('express');
         var productList = [];
         var mainProductList = [];
         productList.push(result.rows);
-        res.send(JSON.stringify(OrderItemsList[0].OrderItemId));
+        res.send(JSON.stringify(OrderItemsList[0].OrderItemId + productList[0].ERP7__OrderItemId__c));
         //res.send(`<h1>${JSON.stringify(productList.rows)}<h1>`);
        /* if(productList != [] && OrderItemsList != []){
           for(let i in productList){
