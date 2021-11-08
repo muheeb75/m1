@@ -114,14 +114,14 @@ const e = require('express');
         productList.push(result.rows);
        // res.send(JSON.stringify(OrderItemsList[0].OrderItemId + result.rows[0].erp7__orderitemid__c));
         res.send(`${JSON.stringify(productList)}`);
-        if(productList != [] && OrderItemsList != []){
+        if(result.rows != [] && OrderItemsList != []){
           for(let i in productList){
             for(let j in OrderItemsList){
              // console.log("=>"++"="+)
-              if(productList.includes(OrderItemsList[j].OrderItemId)){
-                
+              if(productList[0].includes(OrderItemsList[j].OrderItemId)){
+                alert('hi');
                 mainProductList.push(productList[i]);
-                alert();
+                
               }
             }
           }
