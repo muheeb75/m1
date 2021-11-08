@@ -104,12 +104,25 @@ const e = require('express');
     //DB test
     .get('/db', async (req, res) => {
       try {
-        
+      
         const client = await pool.connect();
         const result = await client.query('SELECT * FROM salesforce.product2');
         const results = { 'results': (result) ? result.rows : null};
-        console.log('DB75 Response->',result)   
-        
+        console.log('DB75 Response->',result) 
+        var productList = [];
+        var mainProductList = [];
+        productList.push(result);
+        if(productList != [] && OrderItemsList != []){
+          for(let i in productList){
+            for(let j in OrderItemsList){
+              if(productList[i].ERP7__OrderItemId__c == OrderItemsList[j].OrderItemId){
+                mainProductList.push(productList[i]);
+              }
+            }
+          }
+        }
+        console.log('main Product List->',JSON.stringify(mainProductList));
+        res.send(JSON.stringify(mainProductList));
       } catch (err) {
         console.error(err);
         res.send("Error ->" + err);
