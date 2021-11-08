@@ -105,7 +105,7 @@ const e = require('express');
     .get('/db', async (req, res) => {
       try {
         const client = await pool.connect();
-        const result = await client.query(`SELECT * FROM salesforce.product2 WHERE ERP7__OrderItemId__c IN : ${OrderItemsList}`);
+        const result = await client.query('SELECT * FROM salesforce.product2 WHERE ERP7__OrderItemId__c IN'`${OrderItemsList}`);
         const results = { 'results': (result) ? result.rows : null};
         console.log('DB75 Response->',result) 
         //var productList = [];
