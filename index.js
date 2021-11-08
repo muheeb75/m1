@@ -122,15 +122,16 @@ const e = require('express');
             for(let j in OrderItemsList){
              // console.log("=>"++"="+)
               if(productList[i].erp7__orderitemid__c == OrderItemsList[j].OrderItemId){
-                res.send(`${JSON.stringify(productList[i])}`);
+                //res.send(`${JSON.stringify(productList[i])}`);
                 mainProductList.push(productList[i]);
               }
             }
           }
+          res.send(JSON.stringify(mainProductList));
         }
         
         console.log('main Product List->',JSON.stringify(mainProductList));
-        res.send(JSON.stringify(mainProductList));
+        
       } catch (err) {
         console.error(err);
         res.send("Error ->" + err);
