@@ -117,12 +117,12 @@ const e = require('express');
        // res.send(JSON.stringify(OrderItemsList[0].OrderItemId + result.rows[0].erp7__orderitemid__c));
         //res.send(`${JSON.stringify(productList)}`);
         if(productList.length > 0 && OrderItemsList.length > 0){
-          res.send(`${JSON.stringify(productList)}`);
+         
           for(let i in productList){
             for(let j in OrderItemsList){
              // console.log("=>"++"="+)
               if(productList[i].erp7__orderitemid__c == OrderItemsList[j].OrderItemId){
-                alert('hi 1');
+                res.send(`${JSON.stringify(productList[i])}`);
                 mainProductList.push(productList[i]);
               }
             }
