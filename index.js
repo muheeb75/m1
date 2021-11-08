@@ -77,7 +77,22 @@ const e = require('express');
     }
     
     console.log('Response All Items ->', AllItems);
-    
+    var OrderItemsList = [];
+    if(AllItems != []){
+      for(let i in AllItems){
+       for(let j in AllItems[i].OrderItems){
+        OrderItemsList.push(AllItems[i].OrderItems[j]); 
+       }
+      }
+    }
+
+    const client = await pool.connect();
+    const result = await client.query('SELECT * FROM salesforce.product2');
+    const results = { 'results': (result) ? result.rows : null};
+    console.log('MP-DB-75 Response->',result);
+    /*if(result != ""){
+
+    }*/
      //Product sync:
       
     /*  if(res != []){
@@ -95,16 +110,14 @@ const e = require('express');
   })
 
     //DB test
-    /*.get('/db', async (req, res) => {
+   /* .get('/db', async (req, res) => {
       try {
         
         const client = await pool.connect();
-        const result = await client.query('SELECT * FROM salesforce.order');
+        const result = await client.query('SELECT * FROM salesforce.product2');
         const results = { 'results': (result) ? result.rows : null};
         console.log('DB75 Response->',result)
-        res.send(results);
-        res.json({ error: err })
-        client.release();
+        
       } catch (err) {
         console.error(err);
         res.send("Error ->" + err);
@@ -147,14 +160,7 @@ const e = require('express');
 
     console.log('ProductInfo ->', JSON.stringify(AllItems));
      //Upsert Operation for orderItems:
-    var OrderItemsList = [];
-    if(AllItems != []){
-      for(let i in AllItems){
-       for(let j in AllItems[i].OrderItems){
-        OrderItemsList.push(AllItems[i].OrderItems[j]); 
-       }
-      }
-    }
+    
     console.log('OrderItemsList ->', JSON.stringify(OrderItemsList));
      if(OrderItemsList!= []){
       var Amazon = true;
