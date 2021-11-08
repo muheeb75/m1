@@ -117,7 +117,7 @@ const e = require('express');
         //if(productList != [] && OrderItemsList != []){
           for(let i in productList){
             for(let j in OrderItemsList){
-              if(productList[i].erp7__orderitemid__c == OrderItemsList[j].OrderItemId){
+              if(productList[i].includes(OrderItemsList[j].OrderItemId)){
                 mainProductList.push(productList[i]);
                 alert();
               }
