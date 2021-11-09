@@ -248,7 +248,7 @@ const e = require('express');
              }
            }
          }
-        res.send(JSON.stringify(resp));
+        res.send(JSON.stringify(newPriceBookEntries));
       })
      
     }
