@@ -193,7 +193,8 @@ const e = require('express');
           })
         }
       }
-      client.query('SELECT * FROM salesforce.product2', (err, res) => {
+      pool.connect();
+      pool.query('SELECT * FROM salesforce.product2', (err, res) => {
         if (err) throw err;
         for (let row of res.rows) {
           console.log(JSON.stringify(row));
