@@ -194,8 +194,9 @@ const e = require('express');
         }
       }
       
-        
-          const result1 = pool.query('SELECT * FROM salesforce.product2');
+          const client = pool.connect();
+          const result1 = client.query('SELECT * FROM salesforce.product2');
+          //const result = pool.query('SELECT * FROM salesforce.product2');
           res.send(JSON.stringify(result1));
     }
 
