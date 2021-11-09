@@ -222,20 +222,21 @@ const e = require('express');
               }
             }
           }
-          res.send(JSON.stringify(mainProductIdList));
+         // res.send(JSON.stringify(mainProductIdList));
         }
         
        // pool.end();
       });
       console.log('main Product List->',JSON.stringify(mainProductIdList));
 
-    /*  pool.connect();
+      pool.connect();
       pool.query('SELECT * FROM salesforce.pricebookentry', (err, resp) => {
         if (err) throw err;
         for (let row1 of resp.rows) {
           console.log(JSON.stringify(row1));
         }
-      })*/
+      })
+      res.send(JSON.stringify(row1));
     }
 
     
