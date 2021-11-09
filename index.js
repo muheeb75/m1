@@ -233,21 +233,21 @@ const e = require('express');
       pool.query('SELECT * FROM salesforce.pricebookentry', (err, resp) => {
         if (err) throw err;
         var priceBookEntryList = [];
-        /*for(let i in resp.rows){
+        var newPriceBookEntries = [];
+        for(let i in resp.rows){
            priceBookEntryList.push(resp.rows[i]);
          }
          if(priceBookEntryList.length > 0){
            for(let i in priceBookEntryList){
              for(let j in mainProductIdList){
-              // console.log("=>"++"="+)
-               if(priceBookEntryList[i].erp7__orderitemid__c == mainProductIdList[j]){
+               if(priceBookEntryList[i].sfid == mainProductIdList[j]){
                  //res.send(`${JSON.stringify(productList[i])}`);
                  //pushed salesforce product id's:
-                 mainProductIdList.push(priceBookEntryList[i].sfid);
+                 newPriceBookEntries.push(priceBookEntryList[i]);
                }
              }
            }
-         }*/
+         }
         res.send(JSON.stringify(resp));
       })
      
