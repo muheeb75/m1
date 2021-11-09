@@ -196,6 +196,7 @@ const e = require('express');
     }
 
     //Sync products from salesforce
+    async (req, res) => {
     const client = await pool.connect();
         const result = await client.query('SELECT * FROM salesforce.product2');
         const results = { 'results': (result) ? result.rows : null};
@@ -222,7 +223,7 @@ const e = require('express');
         }
         
         console.log('main Product List->',JSON.stringify(mainProductList));
-
+      }
     //Nav to Success Screen
     //res.sendFile(__dirname+"/success.html"); 
   })
