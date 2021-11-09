@@ -204,7 +204,7 @@ const e = require('express');
 
         var productList = [];
         var mainProductList = [];
-        for(let i in result.rows){
+        for(let i in ress.rows){
         productList.push(ress.rows[i]);
         }
        // res.send(JSON.stringify(OrderItemsList[0].OrderItemId + result.rows[0].erp7__orderitemid__c));
