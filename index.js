@@ -193,46 +193,15 @@ const e = require('express');
           })
         }
       }
-      app.get('/', async (req, res) => {
-        try {
+      
         
-          const client = await pool.connect();
-          const result = await client.query('SELECT * FROM salesforce.product2');
-          const results = { 'results': (result) ? result.rows : null};
-          console.log('DB75 Response->',result) 
-          var productList = [];
-          var mainProductList = [];
-          for(let i in result.rows){
-          productList.push(result.rows[i]);
-          }
-         // res.send(JSON.stringify(OrderItemsList[0].OrderItemId + result.rows[0].erp7__orderitemid__c));
-          //res.send(`${JSON.stringify(productList)}`);
-          if(productList.length > 0 && OrderItemsList.length > 0){
-           
-            for(let i in productList){
-              for(let j in OrderItemsList){
-               // console.log("=>"++"="+)
-                if(productList[i].erp7__orderitemid__c == OrderItemsList[j].OrderItemId){
-                  //res.send(`${JSON.stringify(productList[i])}`);
-                  mainProductList.push(productList[i]);
-                }
-              }
-            }
-            res.send(JSON.stringify(mainProductList));
-          }
-          
-          console.log('main Product List->',JSON.stringify(mainProductList));
-          
-        } catch (err) {
-          console.error(err);
-          res.send("Error ->" + err);
-        }
-      })
+          const result = pool.query('SELECT * FROM salesforce.product2');
+          res.send(JSON.stringify(result));
     }
 
     
     //Nav to Success Screen
-    res.sendFile(__dirname+"/success.html"); 
+    //res.sendFile(__dirname+"/success.html"); 
   })
 
   // start the server listening for requests
