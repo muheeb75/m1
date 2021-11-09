@@ -230,7 +230,7 @@ const e = require('express');
       console.log('main Product List->',JSON.stringify(mainProductIdList));
 
       pool.connect();
-      pool.query('SELECT * FROM salesforce.pricebookentry', (err, resp) => {
+      pool.query(`SELECT product2id FROM salesforce.pricebookentry WHERE product2id IN ${mainProductIdList}`, (err, resp) => {
         if (err) throw err;
        
         res.send(JSON.stringify(resp));
