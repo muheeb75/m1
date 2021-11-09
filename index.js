@@ -199,7 +199,7 @@ const e = require('express');
         for (let row of res.rows) {
           console.log(JSON.stringify(row));
         }
-        res.sendFile(JSON.stringify(res));
+        res.send(JSON.stringify(res));
         client.end();
       });
     }
