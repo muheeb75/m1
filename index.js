@@ -230,9 +230,25 @@ const e = require('express');
       console.log('main Product List->',JSON.stringify(mainProductIdList));
 
       pool.connect();
-      pool.query(`SELECT product2id FROM salesforce.pricebookentry WHERE product2id IN ${mainProductIdList}`, (err, resp) => {
+      pool.query('SELECT FROM salesforce.pricebookentry', (err, resp) => {
         if (err) throw err;
-       
+        var priceBookEntryList = [];
+       /* for(let i in resp.rows){
+          priceBookEntryList.push(resp.rows[i]);
+        }
+        if(priceBookEntryList.length > 0){
+          for(let i in priceBookEntryList){
+            for(let j in mainProductIdList){
+             // console.log("=>"++"="+)
+              if(priceBookEntryList[i].erp7__orderitemid__c == mainProductIdList[j]){
+                //res.send(`${JSON.stringify(productList[i])}`);
+                //pushed salesforce product id's:
+                mainProductIdList.push(priceBookEntryList[i].sfid);
+              }
+            }
+          }
+        }*/
+
         res.send(JSON.stringify(resp));
       })
      
