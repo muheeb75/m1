@@ -75,7 +75,8 @@ const e = require('express');
      // console.log('Response OrderItems ->',OrderItems);
 
     }
-    
+    var mainProductIdList = [];
+
     console.log('Response All Items ->', AllItems);
     var OrderItemsList = [];
     if(AllItems != []){
@@ -102,7 +103,7 @@ const e = require('express');
   })
 
     //DB test
-    .get('/db', async (req, res) => {
+   /* .get('/db', async (req, res) => {
       try {
       
         const client = await pool.connect();
@@ -136,7 +137,7 @@ const e = require('express');
         console.error(err);
         res.send("Error ->" + err);
       }
-    })
+    })*/
     //
 
   //On click Insert Sync Orders Operation
@@ -171,9 +172,10 @@ const e = require('express');
 
  //On click Insert Sync Products Operation
   app.post('/syncProducts',(req, res) => {
+
     console.log('ProductInfo ->', JSON.stringify(AllItems));
+
      //Upsert Operation for orderItems:
-    
     console.log('OrderItemsList ->', JSON.stringify(OrderItemsList));
      if(OrderItemsList != []){
       var Amazon = true;
@@ -203,7 +205,6 @@ const e = require('express');
         //res.send(JSON.stringify(ress));
 
         var productList = [];
-        var mainProductList = [];
         for(let i in ress.rows){
         productList.push(ress.rows[i]);
         }
@@ -216,17 +217,25 @@ const e = require('express');
              // console.log("=>"++"="+)
               if(productList[i].erp7__orderitemid__c == OrderItemsList[j].OrderItemId){
                 //res.send(`${JSON.stringify(productList[i])}`);
-                mainProductList.push(productList[i]);
+                //pushed salesforce product id's:
+                mainProductIdList.push(productList[i].sfid);
               }
             }
           }
-          res.send(JSON.stringify(mainProductList));
+          res.send(JSON.stringify(mainProductIdList));
         }
         
-        console.log('main Product List->',JSON.stringify(mainProductList));
-
        // pool.end();
       });
+      console.log('main Product List->',JSON.stringify(mainProductIdList));
+
+    /*  pool.connect();
+      pool.query('SELECT * FROM salesforce.pricebookentry', (err, resp) => {
+        if (err) throw err;
+        for (let row1 of resp.rows) {
+          console.log(JSON.stringify(row1));
+        }
+      })*/
     }
 
     
