@@ -195,8 +195,8 @@ const e = require('express');
       }
       
         
-          const result = pool.query('SELECT * FROM salesforce.product2');
-          res.send(JSON.stringify(result));
+          const result1 = pool.query('SELECT * FROM salesforce.product2');
+          res.send(JSON.stringify(result1));
     }
 
     
