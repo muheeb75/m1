@@ -235,8 +235,9 @@ const e = require('express');
         for (let row1 of resp.rows) {
           console.log(JSON.stringify(row1));
         }
+        res.send(JSON.stringify(row1));
       })
-      res.send(JSON.stringify(row1));
+     
     }
 
     
