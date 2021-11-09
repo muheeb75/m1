@@ -233,7 +233,7 @@ const e = require('express');
       pool.query('SELECT FROM salesforce.pricebookentry', (err, resp) => {
         if (err) throw err;
         var priceBookEntryList = [];
-       /* for(let i in resp.rows){
+       /*for(let i in resp.rows){
           priceBookEntryList.push(resp.rows[i]);
         }
         if(priceBookEntryList.length > 0){
@@ -249,7 +249,7 @@ const e = require('express');
           }
         }*/
 
-        res.send(JSON.stringify(resp));
+        res.send(resp);
       })
      
     }
