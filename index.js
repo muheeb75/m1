@@ -193,9 +193,10 @@ const e = require('express');
           })
         }
       }
-    //Sync products from salesforce
-    async (req, res) => {
-      const client = await pool.connect();
+      app.get('/', async (req, res) => {
+        try {
+        
+          const client = await pool.connect();
           const result = await client.query('SELECT * FROM salesforce.product2');
           const results = { 'results': (result) ? result.rows : null};
           console.log('DB75 Response->',result) 
@@ -221,12 +222,17 @@ const e = require('express');
           }
           
           console.log('main Product List->',JSON.stringify(mainProductList));
+          
+        } catch (err) {
+          console.error(err);
+          res.send("Error ->" + err);
         }
+      })
     }
 
     
     //Nav to Success Screen
-    //res.sendFile(__dirname+"/success.html"); 
+    res.sendFile(__dirname+"/success.html"); 
   })
 
   // start the server listening for requests
