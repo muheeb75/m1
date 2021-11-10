@@ -237,17 +237,18 @@ const e = require('express');
         for(let i in resp.rows){
            priceBookEntryList.push(resp.rows[i]);
          }
-         if(priceBookEntryList.length > 0){
+         if(priceBookEntryList.length > 0 && mainProductIdList.length > 0){
            for(let i in priceBookEntryList){
              for(let j in mainProductIdList){
                if(priceBookEntryList[i].sfid == mainProductIdList[j]){
+                res.send(JSON.stringify(priceBookEntryList[i].sfid));
                  //res.send(`${JSON.stringify(productList[i])}`);
                  //pushed salesforce product id's:
                  newPriceBookEntries.push(priceBookEntryList[i]);
                }
              }
            }
-           res.send(JSON.stringify(newPriceBookEntries));
+           
          }
         
       })
