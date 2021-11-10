@@ -245,7 +245,7 @@ const e = require('express');
                if(priceBookEntryList[i].product2id == mainProductIdList[j]){
                  //res.send(`${JSON.stringify(productList[i])}`);
                  //pushed salesforce product id's:
-                 newPriceBookEntries.push(mainProductIdList[j]);
+                 newPriceBookEntries.push(priceBookEntryList[i]);
                  priceBookMap.set(mainProductIdList[j],priceBookEntryList[i]);
                  
                }
@@ -253,7 +253,7 @@ const e = require('express');
            }
          }
        // res.send(JSON.stringify(newPriceBookEntries+""+productId));
-       res.send(JSON.stringify(newPriceBookEntries));
+       res.send(JSON.stringify(priceBookMap));
         //priceBookMap.set();
         
       })
