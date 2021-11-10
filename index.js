@@ -260,9 +260,10 @@ const e = require('express');
           priceBookMap[keys[i]] = newPriceBookEntries[i];
       }
         //res.send(JSON.stringify(newPriceBookEntries+""+productId));
+        console.log('priceBookMap~>',priceBookMap);
         res.send(JSON.stringify(priceBookMap));
         //priceBookMap.set();
-        console.log('priceBookMap~>',priceBookMap);
+        
       })
      
     }
