@@ -234,7 +234,7 @@ const e = require('express');
         if (err) throw err;
         var priceBookEntryList = [];
         var newPriceBookEntries = [];
-        var priceBookMap = new Map([[1 , 2], [2 ,3 ] ,[4, 5]]);
+        var priceBookMap = new Map();
         for(let i in resp.rows){
            priceBookEntryList.push(resp.rows[i]);
          }
@@ -254,7 +254,8 @@ const e = require('express');
           // priceBookMap.set();
          }
        // res.send(JSON.stringify(newPriceBookEntries+""+productId));
-       res.send(JSON.stringify(priceBookMap));
+       priceBookMap.set(john, 'admin');
+       res.send(JSON.stringify(priceBookMap.get(john)));
         //priceBookMap.set();
         
       })
