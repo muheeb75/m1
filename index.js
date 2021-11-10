@@ -234,7 +234,7 @@ const e = require('express');
         if (err) throw err;
         var priceBookEntryList = [];
         var newPriceBookEntries = [];
-        const priceBookMap = new Map();
+        const priceBookMap = new Map("mob","123");
         for(let i in resp.rows){
            priceBookEntryList.push(resp.rows[i]);
          }
@@ -251,7 +251,7 @@ const e = require('express');
                }
              }
            }
-           priceBookMap.set("mob","123");
+          // priceBookMap.set();
          }
        // res.send(JSON.stringify(newPriceBookEntries+""+productId));
        res.send(JSON.stringify(priceBookMap));
