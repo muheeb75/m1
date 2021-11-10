@@ -234,7 +234,7 @@ const e = require('express');
         if (err) throw err;
         var priceBookEntryList = [];
         var newPriceBookEntries = [];
-        var key = [];
+        var keys = [];
        // var priceBookMap = new Map();
         for(let i in resp.rows){
            priceBookEntryList.push(resp.rows[i]);
@@ -246,7 +246,7 @@ const e = require('express');
                if(priceBookEntryList[i].product2id == mainProductIdList[j]){
                  //res.send(`${JSON.stringify(productList[i])}`);
                  //pushed salesforce product id's:
-                 key = mainProductIdList[j];
+                 keys = mainProductIdList[j];
                  newPriceBookEntries.push(priceBookEntryList[i]);
                  //priceBookMap.set(mainProductIdList[j],priceBookEntryList[i]);
                  
