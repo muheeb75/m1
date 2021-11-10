@@ -237,7 +237,8 @@ const e = require('express');
         for(let i in resp.rows){
            priceBookEntryList.push(resp.rows[i]);
          }
-         res.send(JSON.stringify(priceBookEntryList));
+         res.send(JSON.stringify(mainProductIdList));
+         //res.send(JSON.stringify(priceBookEntryList));
          if(priceBookEntryList.length > 0){
            for(let i in priceBookEntryList){
              for(let j in mainProductIdList){
