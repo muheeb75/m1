@@ -253,11 +253,10 @@ const e = require('express');
            }
           // priceBookMap.set();
          }
-       // res.send(JSON.stringify(newPriceBookEntries+""+productId));
-      // res.send(JSON.stringify(priceBookMap));
-        //priceBookMap.set();//
-        console.log('priceBookMap~>',priceBookMap.get(mainProductIdList[0]))
-        
+        //res.send(JSON.stringify(newPriceBookEntries+""+productId));
+        //res.send(JSON.stringify(priceBookMap));
+        //priceBookMap.set();
+        console.log('priceBookMap~>',priceBookMap.get(mainProductIdList));
       })
      
     }
