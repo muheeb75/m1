@@ -247,7 +247,8 @@ const e = require('express');
                  //res.send(`${JSON.stringify(productList[i])}`);
                  //pushed salesforce product id's:
                  newPriceBookEntries.push(priceBookEntryList[i]);
-                 mapArray.push(mainProductIdList[j]);
+                 //mapArray.push(mainProductIdList[j]);
+                 res.send(JSON.stringify(mainProductIdList[j]));
                  //priceBookMap.set(mainProductIdList[j],priceBookEntryList[i]);
                  
                }
@@ -255,7 +256,7 @@ const e = require('express');
            }
          }
        // res.send(JSON.stringify(newPriceBookEntries+""+productId));
-       res.send(JSON.stringify(mapArray));
+       
         //priceBookMap.set();
         
       })
