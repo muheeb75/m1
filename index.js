@@ -261,10 +261,9 @@ const e = require('express');
        // res.send(JSON.stringify(newPriceBookEntries+""+productId));
        //priceBookMap.set(john, 'admin');
        res.send(PBEmap);
-       console.log('PBEmap~>'+PBEmap);
+       console.log('PBEmap~>'+JSON.stringify(PBEmap));
         //priceBookMap.set();
       })
-     
     }
 
     
