@@ -4,6 +4,11 @@ const app = express()
 const bodyParser = require('express');
 app.use(bodyParser.urlencoded({extended:true}))
 const { Pool } = require('pg');
+const PBEmap = new Map([
+  ['name', 'freeCodeCamp'],
+  ['type', 'blog'],
+  ['writer', 'Tapas Adhikary'],
+]);
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
@@ -234,11 +239,7 @@ const e = require('express');
         if (err) throw err;
         var priceBookEntryList = [];
         var newPriceBookEntries = [];
-        const PBEmap = new Map([
-          ['name', 'freeCodeCamp'],
-          ['type', 'blog'],
-          ['writer', 'Tapas Adhikary'],
-        ]);
+        
 
         /*for(let i in resp.rows){
            priceBookEntryList.push(resp.rows[i]);
