@@ -256,9 +256,11 @@ const e = require('express');
           // priceBookMap.set();
          }
          var priceBookMap = {};
-         for(var i = 0; i < keys.length; i++){
+        for(var i = 0; i < keys.length; i++){
+          console.log('keys[i]~>',keys[i]);
+          console.log('newPriceBookEntries[i]~>',newPriceBookEntries[i]);
           priceBookMap[keys[i]] = newPriceBookEntries[i];
-      }
+        }
         //res.send(JSON.stringify(newPriceBookEntries+""+productId));
         console.log('priceBookMap~>',priceBookMap);
         res.send(JSON.stringify(priceBookMap));
