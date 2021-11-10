@@ -253,7 +253,7 @@ const e = require('express');
            }
          }
        // res.send(JSON.stringify(newPriceBookEntries+""+productId));
-       res.send(JSON.stringify(priceBookMap.get()));
+       res.send(JSON.stringify(priceBookMap.get(mainProductIdList[0])));
         //priceBookMap.set();
         
       })
