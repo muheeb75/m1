@@ -237,11 +237,11 @@ const e = require('express');
         for(let i in resp.rows){
            priceBookEntryList.push(resp.rows[i]);
          }
-         res.send(JSON.stringify(priceBookEntryList));
+         
          if(priceBookEntryList.length > 0){
            for(let i in priceBookEntryList){
              for(let j in mainProductIdList){
-               if(priceBookEntryList[i].sfid == mainProductIdList[j].sfid){
+               if(priceBookEntryList[i].product2id == mainProductIdList[j].sfid){
                 
                  //res.send(`${JSON.stringify(productList[i])}`);
                  //pushed salesforce product id's:
@@ -249,7 +249,7 @@ const e = require('express');
                }
              }
            }
-           
+           res.send(JSON.stringify(newPriceBookEntries));
          }
         
       })
