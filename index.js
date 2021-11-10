@@ -239,7 +239,7 @@ const e = require('express');
            priceBookEntryList.push(resp.rows[i]);
          }
         // res.send(JSON.stringify(mainProductIdList));
-         /*if(priceBookEntryList.length > 0){
+        /* if(priceBookEntryList.length > 0){
            for(let i in priceBookEntryList){
              for(let j in mainProductIdList){
                if(priceBookEntryList[i].product2id == mainProductIdList[j]){
@@ -250,9 +250,9 @@ const e = require('express');
                  
                }
              }
-           }*/
+           }
           // priceBookMap.set();
-         }
+         }*/
        // res.send(JSON.stringify(newPriceBookEntries+""+productId));
        //priceBookMap.set(john, 'admin');
        res.send(JSON.stringify(priceBookMap.get(john)));
