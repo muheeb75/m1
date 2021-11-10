@@ -245,7 +245,7 @@ const e = require('express');
                if(priceBookEntryList[i].product2id == mainProductIdList[j]){
                  //res.send(`${JSON.stringify(productList[i])}`);
                  //pushed salesforce product id's:
-                 newPriceBookEntries.push(priceBookEntryList[i]);
+                 newPriceBookEntries.push(mainProductIdList[j]);
                  priceBookMap.set(mainProductIdList[j],priceBookEntryList[i]);
                  
                }
