@@ -234,8 +234,13 @@ const e = require('express');
         if (err) throw err;
         var priceBookEntryList = [];
         var newPriceBookEntries = [];
-        const priceBookMap = {'abc':'abc'}
-        for(let i in resp.rows){
+        const PBEmap = new Map([
+          ['name', 'freeCodeCamp'],
+          ['type', 'blog'],
+          ['writer', 'Tapas Adhikary'],
+        ]);
+
+        /*for(let i in resp.rows){
            priceBookEntryList.push(resp.rows[i]);
          }
         // res.send(JSON.stringify(mainProductIdList));
@@ -252,11 +257,11 @@ const e = require('express');
            }
           // priceBookMap.set();
          }
+         */
        // res.send(JSON.stringify(newPriceBookEntries+""+productId));
        //priceBookMap.set(john, 'admin');
-       res.send(JSON.stringify(priceBookMap));
+       res.send(PBEmap);
         //priceBookMap.set();
-        
       })
      
     }
