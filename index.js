@@ -234,8 +234,7 @@ const e = require('express');
         if (err) throw err;
         var priceBookEntryList = [];
         var newPriceBookEntries = [];
-        var keys = [];
-       // var priceBookMap = new Map();
+        const priceBookMap = new Map();
         for(let i in resp.rows){
            priceBookEntryList.push(resp.rows[i]);
          }
@@ -246,24 +245,15 @@ const e = require('express');
                if(priceBookEntryList[i].product2id == mainProductIdList[j]){
                  //res.send(`${JSON.stringify(productList[i])}`);
                  //pushed salesforce product id's:
-                 keys = mainProductIdList[j];
                  newPriceBookEntries.push(priceBookEntryList[i]);
                  //priceBookMap.set(mainProductIdList[j],priceBookEntryList[i]);
                  
                }
              }
            }
-          // priceBookMap.set();
          }
-         var priceBookMap = {};
-        for(var i = 0; i < keys.length; i++){
-          console.log('keys[i]~>',keys[i]);
-          console.log('newPriceBookEntries[i]~>',newPriceBookEntries[i]);
-          priceBookMap[keys[i]] = newPriceBookEntries[i];
-        }
-        //res.send(JSON.stringify(newPriceBookEntries+""+productId));
-        console.log('priceBookMap~>',newPriceBookEntries);
-        res.send(JSON.stringify(newPriceBookEntries));
+       // res.send(JSON.stringify(newPriceBookEntries+""+productId));
+       res.send(JSON.stringify(newPriceBookEntries));
         //priceBookMap.set();
         
       })
