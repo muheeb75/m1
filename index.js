@@ -4,11 +4,6 @@ const app = express()
 const bodyParser = require('express');
 app.use(bodyParser.urlencoded({extended:true}))
 const { Pool } = require('pg');
-const PBEmap = new Map([
-  ['name', 'freeCodeCamp'],
-  ['type', 'blog'],
-  ['writer', 'Tapas Adhikary'],
-]);
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
@@ -239,9 +234,8 @@ const e = require('express');
         if (err) throw err;
         var priceBookEntryList = [];
         var newPriceBookEntries = [];
-        
-
-        /*for(let i in resp.rows){
+        var priceBookMap = new Map();
+        for(let i in resp.rows){
            priceBookEntryList.push(resp.rows[i]);
          }
         // res.send(JSON.stringify(mainProductIdList));
@@ -252,19 +246,20 @@ const e = require('express');
                  //res.send(`${JSON.stringify(productList[i])}`);
                  //pushed salesforce product id's:
                  newPriceBookEntries.push(priceBookEntryList[i]);
+                 priceBookMap.set(mainProductIdList[j],priceBookEntryList[i]);
                  
                }
              }
            }
           // priceBookMap.set();
          }
-         */
        // res.send(JSON.stringify(newPriceBookEntries+""+productId));
-       //priceBookMap.set(john, 'admin');
-       res.send(PBEmap);
-       console.log('PBEmap~>'+JSON.stringify(PBEmap.entries()));
-        //priceBookMap.set();
+      // res.send(JSON.stringify(priceBookMap));
+        //priceBookMap.set();//
+        console.log('priceBookMap~>',priceBookMap.get(mainProductIdList.values()))
+        
       })
+     
     }
 
     
