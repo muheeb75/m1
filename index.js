@@ -238,7 +238,7 @@ const e = require('express');
            priceBookEntryList.push(resp.rows[i]);
          }
          res.send(priceBookEntryList.length+"="+mainProductIdList.length);
-         if(priceBookEntryList.length > 0 && mainProductIdList.length > 0){
+         if(priceBookEntryList.length > 0 && mainProductIdList){
            for(let i in priceBookEntryList){
              for(let j in mainProductIdList){
                if(priceBookEntryList[i].sfid == mainProductIdList[j]){
