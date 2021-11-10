@@ -237,8 +237,8 @@ const e = require('express');
         for(let i in resp.rows){
            priceBookEntryList.push(resp.rows[i]);
          }
-         res.send(JSON.stringify('(1)->',priceBookEntryList[i].sfid,'(2)->',mainProductIdList));
-       /*  if(priceBookEntryList.length > 0 && mainProductIdList.length > 0){
+         res.send(JSON.stringify('(1)->',priceBookEntryList[0].sfid,'(2)->',mainProductIdList));
+         if(priceBookEntryList.length > 0 && mainProductIdList.length > 0){
            for(let i in priceBookEntryList){
              for(let j in mainProductIdList){
                if(priceBookEntryList[i].sfid == mainProductIdList[j]){
@@ -250,7 +250,7 @@ const e = require('express');
              }
            }
            
-         }*/
+         }
         
       })
      
