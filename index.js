@@ -247,8 +247,9 @@ const e = require('express');
                }
              }
            }
+           res.send(JSON.stringify(newPriceBookEntries));
          }
-        res.send(JSON.stringify(newPriceBookEntries));
+        
       })
      
     }
