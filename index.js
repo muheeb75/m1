@@ -251,10 +251,10 @@ const e = require('express');
              }
            }
          }
-        //res.send(JSON.stringify(newPriceBookEntries));
+        res.send(JSON.stringify(newPriceBookEntries+""+productId));
         const priceBookMap = new Map();
         priceBookMap.set(productId, newPriceBookEntries);
-        res.send(JSON.stringify(priceBookMap));
+       // res.send(JSON.stringify(priceBookMap));
       })
      
     }
