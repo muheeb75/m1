@@ -262,8 +262,8 @@ const e = require('express');
           priceBookMap[keys[i]] = newPriceBookEntries[i];
         }
         //res.send(JSON.stringify(newPriceBookEntries+""+productId));
-        console.log('priceBookMap~>',priceBookMap);
-        res.send(JSON.stringify(priceBookMap));
+        console.log('priceBookMap~>',newPriceBookEntries);
+        res.send(JSON.stringify(newPriceBookEntries));
         //priceBookMap.set();
         
       })
