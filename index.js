@@ -234,7 +234,7 @@ const e = require('express');
         if (err) throw err;
         var priceBookEntryList = [];
         var newPriceBookEntries = [];
-        var productId;
+        const priceBookMap = new Map();
         for(let i in resp.rows){
            priceBookEntryList.push(resp.rows[i]);
          }
@@ -246,14 +246,14 @@ const e = require('express');
                  //res.send(`${JSON.stringify(productList[i])}`);
                  //pushed salesforce product id's:
                  newPriceBookEntries.push(priceBookEntryList[i]);
-                 productId = mainProductIdList[j]
+                 priceBookMap.set(mainProductIdList[j],priceBookEntryList[i])
                }
              }
            }
          }
        // res.send(JSON.stringify(newPriceBookEntries+""+productId));
-        const priceBookMap = new Map();
-        priceBookMap.set(productId, newPriceBookEntries);
+        
+        //priceBookMap.set();
         res.send(JSON.stringify(priceBookMap));
       })
      
