@@ -218,7 +218,7 @@ const e = require('express');
               if(productList[i].erp7__orderitemid__c == OrderItemsList[j].OrderItemId){
                 //res.send(`${JSON.stringify(productList[i])}`);
                 //pushed salesforce product id's:
-                mainProductIdList.push(productList[i].sfid);
+                mainProductIdList.push(productList[i]);
               }
             }
           }
@@ -241,7 +241,7 @@ const e = require('express');
          if(priceBookEntryList.length > 0 && mainProductIdList){
            for(let i in priceBookEntryList){
              for(let j in mainProductIdList){
-               if(priceBookEntryList[i].sfid == mainProductIdList[j]){
+               if(priceBookEntryList[i].sfid == mainProductIdList[j].sfid){
                 
                  //res.send(`${JSON.stringify(productList[i])}`);
                  //pushed salesforce product id's:
