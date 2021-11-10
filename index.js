@@ -234,7 +234,7 @@ const e = require('express');
         if (err) throw err;
         var priceBookEntryList = [];
         var newPriceBookEntries = [];
-        const priceBookMap = new Map(john, 'admin');
+        const priceBookMap = new Map('john', 'admin');
         for(let i in resp.rows){
            priceBookEntryList.push(resp.rows[i]);
          }
