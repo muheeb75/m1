@@ -271,7 +271,7 @@ const e = require('express');
               priceBookEntriesObject.productId = mainProductList[i].sfid;
               priceBookEntriesObject.priceBookId = PriceBookId;
               priceBookEntriesObject.isActive = true;
-              priceBookEntriesObject.unitPrice = mainProductList[i].ItemPrice.Amount;
+              priceBookEntriesObject.unitPrice = '5' //mainProductList[i].ItemPrice.Amount;
               priceBookEntriesObject.test = "in If";
             }else{
               //insert the priceBookEntries:
