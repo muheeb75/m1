@@ -233,55 +233,39 @@ const e = require('express');
       console.log('main Product List->',JSON.stringify(mainProductIdList));
 
       pool.connect();
-      pool.query('SELECT * FROM salesforce.pricebookentry', (err, resp) => {
+      pool.query('SELECT * FROM salesforce.pricebookentry WHERE product2id != null AND pricebook2id != null AND isactive = true AND pricebook2.isactive = true ORDER BY lastmodifieddate', (err, resp) => {
         if (err) throw err;
         var priceBookEntryList = [];
         var newPriceBookEntries = [];
         var mapArray = [];
         const priceBookMap = new Map();
         for(let i in resp.rows){
-           priceBookEntryList.push(resp.rows[i]);
+          if(mainProductIdList.includes(resp.rows[i].product2id)){
+            priceBookEntryList.push(resp.rows[i]);
+          }
          }
         // res.send(JSON.stringify(mainProductIdList));
-         if(priceBookEntryList.length > 0){
-           for(let i in priceBookEntryList){
-             for(let j in mainProductIdList){
-               if(priceBookEntryList[i].product2id == mainProductIdList[j]){
-                 //res.send(`${JSON.stringify(productList[i])}`);
-                 //pushed salesforce product id's:
-                 newPriceBookEntries.push(priceBookEntryList[i]);
-                 priceBookMap.set(priceBookEntryList[i].product2id,priceBookEntryList[i]);
-                 //mapArray.push(mainProductIdList[j]);
-                 //res.send(mainProductIdList[j]);
-                 
-               }
-             }
-           }
-         }
-         //res.send(newPriceBookEntries);
-         console.log('newPriceBookEntries->',newPriceBookEntries);
-         //res.send(priceBookMap.get(priceBookEntryList[0].product2id));
-        var priceBookEntriesObjectList = [];
-         //console.log('mainProductList[i].Amount->',mainProductList[0].ItemPrice.Amount);
-         for(let i in OrderItemsList){
-          for (let [key, value] of priceBookMap){
-            console.log('MapKeyValue=>',key + " = " + value);
-            if(key == mainProductList[i].sfid){
-              //var priceBookEntriesObject = {};
-              var PBE = priceBookMap.get(value);
-              PBE.product2id = mainProductList[i].sfid;
-              PBE.pricebook2id = PriceBookId;
-              PBE.isactive = true;
-              PBE.unitprice = '5' //mainProductList[i].ItemPrice.Amount;
-              //priceBookEntriesObject.test = "in If";
-            }else if(key != mainProductList[i].sfid){
-              //if there is price book entry in product upsert the priceBookEntries:
-
-              priceBookEntriesObject.test = "in else";
+         if(priceBookEntryList.length >0){
+            for(let i in priceBookEntryList){
+              priceBookMap.set(priceBookEntryList[i].product2id,priceBookEntryList[i]);
             }
-          }
+         }
+        var priceBookEntriesObjectList = [];
+         for(let i in mainProductList){
+            if(priceBookMap.has(mainProductList[i].sfid)){
+              //var priceBookEntriesObject = {};
+              var PBE = priceBookMap.get(mainProductList[i].sfid);
+              PBE.unitprice = '5' //mainProductList[i].ItemPrice.Amount;
+              priceBookEntriesObjectList.push(PBE);
+            }else{
+              var PBE = {};
+              PBE.Pricebook2Id = PriceBookId;
+              PBE.Product2Id = mainProductList[i].sfid;
+              PBE.UnitPrice = 5;
+              priceBookEntriesObjectList.push(PBE);
+            }
          }  
-       console.log('PriceBookEntriesObj->',priceBookEntriesObject);
+       console.log('priceBookEntriesObjectList->',priceBookEntriesObjectList);
         
       })
      
