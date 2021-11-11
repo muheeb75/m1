@@ -255,8 +255,8 @@ const e = require('express');
            }
          }
          //res.send(newPriceBookEntries);
-         console.log('priceBookMap->',);
          priceBookMap.set('map',priceBookEntryList);
+         console.log('priceBookMap->',priceBookMap.get('map'));
          res.send(priceBookMap);
          
        // res.send(JSON.stringify(newPriceBookEntries+""+productId));
