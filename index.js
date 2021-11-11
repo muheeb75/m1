@@ -77,6 +77,7 @@ const e = require('express');
 
     }
     var mainProductIdList = [];
+    var mainProductList = [];
     var productList = [];
     console.log('Response All Items ->', AllItems);
     var OrderItemsList = [];
@@ -220,6 +221,7 @@ const e = require('express');
                 //res.send(`${JSON.stringify(productList[i])}`);
                 //pushed salesforce product id's:
                 mainProductIdList.push(productList[i].sfid);
+                mainProductList.push(productList[i])
               }
             }
           }
@@ -264,12 +266,12 @@ const e = require('express');
          for(let i in OrderItemsList){
           for (let [key, value] of  priceBookMap){
             
-            if(key == OrderItemsList[i].sfid){
-              console.log(key + " = " + OrderItemsList[i].sfid);
-              priceBookEntriesObject.productId = OrderItemsList[i].sfid;
+            if(key == mainProductList[i].sfid){
+              //console.log(key + " = " + OrderItemsList[i].sfid);
+              priceBookEntriesObject.productId = mainProductList[i].sfid;
               priceBookEntriesObject.priceBookId = PriceBookId;
               priceBookEntriesObject.isActive = true;
-              priceBookEntriesObject.unitPrice = OrderItemsList[i].ItemPrice.Amount;
+              priceBookEntriesObject.unitPrice = mainProductList[i].ItemPrice.Amount;
               priceBookEntriesObject.test = "in If";
             }else{
               //insert the priceBookEntries:
