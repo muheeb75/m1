@@ -249,12 +249,16 @@ const e = require('express');
                  newPriceBookEntries.push(priceBookEntryList[i]);
                  //mapArray.push(mainProductIdList[j]);
                  //res.send(mainProductIdList[j]);
-                 //priceBookMap.set(mainProductIdList[j],priceBookEntryList[i]);
+                 
                }
              }
            }
          }
-         res.send(newPriceBookEntries);
+         //res.send(newPriceBookEntries);
+         console.log('priceBookMap->',);
+         priceBookMap.set('map',priceBookEntryList);
+         res.send(priceBookMap);
+         
        // res.send(JSON.stringify(newPriceBookEntries+""+productId));
        
         //priceBookMap.set();
