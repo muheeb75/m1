@@ -248,14 +248,13 @@ const e = require('express');
                  //pushed salesforce product id's:
                  newPriceBookEntries.push(priceBookEntryList[i]);
                  //mapArray.push(mainProductIdList[j]);
-                 res.send(mainProductIdList[j]);
+                 //res.send(mainProductIdList[j]);
                  //priceBookMap.set(mainProductIdList[j],priceBookEntryList[i]);
-                 
                }
              }
            }
          }
-
+         res.send(newPriceBookEntries);
        // res.send(JSON.stringify(newPriceBookEntries+""+productId));
        
         //priceBookMap.set();
