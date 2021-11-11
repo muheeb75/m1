@@ -77,7 +77,7 @@ const e = require('express');
 
     }
     var mainProductIdList = [];
-
+    var productList = [];
     console.log('Response All Items ->', AllItems);
     var OrderItemsList = [];
     if(AllItems != []){
@@ -205,7 +205,7 @@ const e = require('express');
         }
         //res.send(JSON.stringify(ress));
 
-        var productList = [];
+        
         for(let i in ress.rows){
         productList.push(ress.rows[i]);
         }
