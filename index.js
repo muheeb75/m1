@@ -41,7 +41,7 @@ const e = require('express');
         AWS_SELLING_PARTNER_ROLE:AWSSellingPartnerRole, //'arn:aws:iam::323194687869:role/SPAPIRole'
         }
       });
-      var productList = [];
+      
       //Order sync:
         let res = await sellingPartner.callAPI({
         operation:'getOrders',
@@ -55,7 +55,6 @@ const e = require('express');
          });
          console.log('Response Orders ->',JSON.stringify(res.Orders));
          var AmazonOrderIdList = [];
-         
          for(let i in res.Orders){
            if(res.Orders[i].AmazonOrderId != "") AmazonOrderIdList.push(res.Orders[i].AmazonOrderId);
          }
@@ -206,7 +205,7 @@ const e = require('express');
         }
         //res.send(JSON.stringify(ress));
 
-        
+        var productList = [];
         for(let i in ress.rows){
         productList.push(ress.rows[i]);
         }
@@ -262,17 +261,17 @@ const e = require('express');
          //res.send(priceBookMap.get(priceBookEntryList[0].product2id));
          priceBookEntriesObject = {
          }
-         for(let i in productList){
+         for(let i in OrderItemsList){
           for (let [key, value] of  priceBookMap){
             //console.log(key + " = " + value)
-            if(key == productList[i].sfid){
-              priceBookEntriesObject.productId = productList[i].sfid;
+            if(key == OrderItemsList[i].sfid){
+              priceBookEntriesObject.productId = OrderItemsList[i].sfid;
               priceBookEntriesObject.priceBookId = PriceBookId;
               priceBookEntriesObject.isActive = true;
-              priceBookEntriesObject.unitPrice = productList[i].ItemPrice.Amount;
+              priceBookEntriesObject.unitPrice = OrderItemsList[i].ItemPrice.Amount;
             }else{
               //insert the priceBookEntries:
-
+              
             }
           }
          }  
