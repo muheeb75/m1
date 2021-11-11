@@ -233,7 +233,7 @@ const e = require('express');
       console.log('main Product List->',JSON.stringify(mainProductIdList));
 
       pool.connect();
-      pool.query('SELECT * FROM salesforce.pricebookentry WHERE product2id != null AND pricebook2id != null AND isactive = true AND pricebook2.isactive = true ORDER BY lastmodifieddate', (err, resp) => {
+      pool.query('SELECT * FROM salesforce.pricebookentry WHERE product2id != null AND pricebook2id != null AND isactive = true ORDER BY lastmodifieddate', (err, resp) => {
         if (err) throw err;
         var priceBookEntryList = [];
         var newPriceBookEntries = [];
