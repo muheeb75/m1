@@ -41,7 +41,7 @@ const e = require('express');
         AWS_SELLING_PARTNER_ROLE:AWSSellingPartnerRole, //'arn:aws:iam::323194687869:role/SPAPIRole'
         }
       });
-      
+      var productList = [];
       //Order sync:
         let res = await sellingPartner.callAPI({
         operation:'getOrders',
@@ -55,6 +55,7 @@ const e = require('express');
          });
          console.log('Response Orders ->',JSON.stringify(res.Orders));
          var AmazonOrderIdList = [];
+         
          for(let i in res.Orders){
            if(res.Orders[i].AmazonOrderId != "") AmazonOrderIdList.push(res.Orders[i].AmazonOrderId);
          }
@@ -205,7 +206,7 @@ const e = require('express');
         }
         //res.send(JSON.stringify(ress));
 
-        var productList = [];
+        
         for(let i in ress.rows){
         productList.push(ress.rows[i]);
         }
@@ -271,7 +272,7 @@ const e = require('express');
               priceBookEntriesObject.unitPrice = productList[i].ItemPrice.Amount;
             }else{
               //insert the priceBookEntries:
-              
+
             }
           }
          }  
