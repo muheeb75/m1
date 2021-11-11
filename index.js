@@ -263,8 +263,9 @@ const e = require('express');
          }
          for(let i in OrderItemsList){
           for (let [key, value] of  priceBookMap){
-            //console.log(key + " = " + value)
+            
             if(key == OrderItemsList[i].sfid){
+              console.log(key + " = " + OrderItemsList[i].sfid);
               priceBookEntriesObject.productId = OrderItemsList[i].sfid;
               priceBookEntriesObject.priceBookId = PriceBookId;
               priceBookEntriesObject.isActive = true;
