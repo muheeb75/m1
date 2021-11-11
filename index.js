@@ -21,6 +21,7 @@ const Port = process.env.PORT || 2000;
     const AWSAccessKey = process.env.AWS_ACCESS_KEY_ID || 'AKIAUWP7HSF63GXOMU7F';
     const AWSSecretAccessKey = process.env.AWS_SECRET_ACCESS_KEY || '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';
     const AWSSellingPartnerRole = process.env.AWS_SELLING_PARTNER_ROLE || 'arn:aws:iam::323194687869:role/SPAPIRole';
+    const PriceBookId = process.env.Price_Book_Id || '01s240000048zt7AAA';
 
 const SellingPartnerAPI = require('amazon-sp-api');
 const e = require('express');
@@ -256,13 +257,25 @@ const e = require('express');
            }
          }
          //res.send(newPriceBookEntries);
-         
-         console.log('priceBookMap->',priceBookMap.get(priceBookEntryList[0].product2id));
-         res.send(priceBookMap.get('map'));
-         
-       // res.send(JSON.stringify(newPriceBookEntries+""+productId));
-       
-        //priceBookMap.set();
+         //console.log('priceBookMap->',priceBookMap.get(priceBookEntryList[0].product2id));
+         //res.send(priceBookMap.get(priceBookEntryList[0].product2id));
+         priceBookEntriesObject = {
+         }
+         for(let i in productList){
+          for (let [key, value] of  priceBookMap){
+            //console.log(key + " = " + value)
+            if(key == productList[i].sfid){
+              priceBookEntriesObject.productId = productList[i].sfid;
+              priceBookEntriesObject.priceBookId = PriceBookId;
+              priceBookEntriesObject.isActive = true;
+              priceBookEntriesObject.unitPrice = productList[i].ItemPrice.Amount;
+            }else{
+              //insert the priceBookEntries:
+              
+            }
+          }
+         }  
+       console.log('PriceBookEntriesObj->',priceBookEntriesObject);
         
       })
      
