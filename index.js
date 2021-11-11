@@ -263,6 +263,7 @@ const e = require('express');
          //res.send(priceBookMap.get(priceBookEntryList[0].product2id));
          priceBookEntriesObject = {
          }
+         console.log('mainProductList[i].Amount->',mainProductList[0].ItemPrice.Amount);
          for(let i in OrderItemsList){
           for (let [key, value] of  priceBookMap){
             
@@ -273,8 +274,9 @@ const e = require('express');
               priceBookEntriesObject.isActive = true;
               priceBookEntriesObject.unitPrice = '5' //mainProductList[i].ItemPrice.Amount;
               priceBookEntriesObject.test = "in If";
-            }else{
-              //insert the priceBookEntries:
+            }else if(key != mainProductList[i].sfid){
+              //if there is price book entry in product upsert the priceBookEntries:
+
               priceBookEntriesObject.test = "in else";
             }
           }
