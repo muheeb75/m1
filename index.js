@@ -269,9 +269,10 @@ const e = require('express');
               priceBookEntriesObject.priceBookId = PriceBookId;
               priceBookEntriesObject.isActive = true;
               priceBookEntriesObject.unitPrice = OrderItemsList[i].ItemPrice.Amount;
+              priceBookEntriesObject.test = "in If";
             }else{
               //insert the priceBookEntries:
-              
+              priceBookEntriesObject.test = "in else";
             }
           }
          }  
