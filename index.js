@@ -262,7 +262,7 @@ const e = require('express');
          console.log('newPriceBookEntries->',newPriceBookEntries);
          //res.send(priceBookMap.get(priceBookEntryList[0].product2id));
         var priceBookEntriesObjectList = [];
-         console.log('mainProductList[i].Amount->',mainProductList[0].ItemPrice.Amount);
+         //console.log('mainProductList[i].Amount->',mainProductList[0].ItemPrice.Amount);
          for(let i in OrderItemsList){
           for (let [key, value] of  priceBookMap){
             console.log('MapKeyValue=>',key + " = " + value);
