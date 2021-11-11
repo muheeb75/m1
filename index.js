@@ -259,21 +259,22 @@ const e = require('express');
            }
          }
          //res.send(newPriceBookEntries);
-         //console.log('priceBookMap->',priceBookMap.get(priceBookEntryList[0].product2id));
+         console.log('newPriceBookEntries->',newPriceBookEntries);
          //res.send(priceBookMap.get(priceBookEntryList[0].product2id));
-         priceBookEntriesObject = {
-         }
+        var priceBookEntriesObjectList = [];
          console.log('mainProductList[i].Amount->',mainProductList[0].ItemPrice.Amount);
          for(let i in OrderItemsList){
           for (let [key, value] of  priceBookMap){
-            
+            console.log('MapKeyValue=>',key + " = " + value);
             if(key == mainProductList[i].sfid){
-              //console.log(key + " = " + OrderItemsList[i].sfid);
+              var priceBookEntriesObject = {};
+              
               priceBookEntriesObject.productId = mainProductList[i].sfid;
               priceBookEntriesObject.priceBookId = PriceBookId;
               priceBookEntriesObject.isActive = true;
               priceBookEntriesObject.unitPrice = '5' //mainProductList[i].ItemPrice.Amount;
               priceBookEntriesObject.test = "in If";
+              priceBookEntriesObjectList
             }else if(key != mainProductList[i].sfid){
               //if there is price book entry in product upsert the priceBookEntries:
 
